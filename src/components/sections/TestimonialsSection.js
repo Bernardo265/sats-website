@@ -3,28 +3,34 @@ import React from 'react';
 function TestimonialsSection() {
   const testimonials = [
     {
-      name: "John Doe",
-      initials: "JD",
+      name: "Praise Bokosi",
+      initials: "PB",
       review: "SafeSats made buying Bitcoin incredibly easy and secure. The platform is user-friendly and the transaction was completed within minutes.",
       role: "Verified Customer"
     },
     {
-      name: "Sarah Miller",
-      initials: "SM",
+      name: "Chiyembekezi Chabuka",
+      initials: "CC",
       review: "Excellent customer service and fast transactions. I've been using SafeSats for months and never had any issues. Highly recommended!",
       role: "Verified Customer"
     },
     {
-      name: "Michael Johnson",
-      initials: "MJ",
+      name: "Limbani Banda",
+      initials: "LB",
       review: "The security features give me peace of mind. SafeSats is definitely the most trustworthy platform I've used for cryptocurrency trading.",
       role: "Verified Customer"
     }
   ];
 
   return (
-    <section className="relative z-10 px-6 py-20 bg-gray-900">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative z-10 px-6 py-20 bg-gradient-to-b from-gray-900 via-gray-900 to-gray-800">
+      {/* Top gradient overlay for smooth transition from premier platform section */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-gray-900/30 to-transparent pointer-events-none"></div>
+
+      {/* Bottom gradient overlay for smooth transition to next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-gray-800/50 pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center space-y-6 mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight">

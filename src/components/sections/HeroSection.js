@@ -3,8 +3,15 @@ import { Link } from 'react-router-dom';
 
 function HeroSection() {
   return (
-    <section className="px-6 py-12">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-2 gap-12 items-center">
+    <section className="relative px-6 py-12 bg-gradient-to-b from-gray-900 via-gray-900 to-gray-800 overflow-hidden">
+      {/* Ambient background glow */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-green-400/5 rounded-full blur-3xl animate-pulse"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-400/5 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+
+      {/* Gradient overlay for smooth transition to next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-gray-800/50 pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Side - Hero Content */}
         <div className="space-y-8 hero-content">
           <div className="space-y-6">
@@ -21,17 +28,19 @@ function HeroSection() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link 
+            <Link
               to="/contact"
-              className="bg-white text-black px-8 py-4 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg transform hover:scale-105 hover:bg-gray-200 text-center"
+              className="bg-white text-black px-8 py-4 rounded-lg font-semibold btn-enhanced-hover glow-green text-center relative overflow-hidden group"
             >
-              Get Started Today
+              <span className="relative z-10">Get Started Today</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-blue-500 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
             </Link>
-            <Link 
+            <Link
               to="/about"
-              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 hover:bg-white hover:text-black text-center"
+              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold btn-enhanced-hover hover:bg-white hover:text-black text-center relative overflow-hidden group"
             >
-              Learn More
+              <span className="relative z-10">Learn More</span>
+              <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </Link>
           </div>
 
@@ -42,7 +51,7 @@ function HeroSection() {
               <div className="text-gray-400 text-sm">Active Users</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-1">$100M+</div>
+              <div className="text-3xl font-bold text-white mb-1">MK100M+</div>
               <div className="text-gray-400 text-sm">Volume Traded</div>
             </div>
             <div className="text-center">
@@ -56,28 +65,28 @@ function HeroSection() {
             <p className="text-gray-400 text-sm mb-4">Accepted payment methods:</p>
             <div className="flex items-center space-x-4">
               {/* Payment method logos */}
-              <div className="w-10 h-10 flex items-center justify-center p-1">
+              <div className="w-20 h-20 flex items-center justify-center p-1">
                 <img 
                   src="/images/mukuru.png" 
                   alt="Mukuru" 
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div className="w-10 h-10 flex items-center justify-center p-1">
+              <div className="w-20 h-20 flex items-center justify-center p-1">
                 <img 
                   src="/images/airtel-money.png" 
                   alt="Airtel Money" 
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div className="w-10 h-10 flex items-center justify-center p-1">
+              <div className="w-20 h-20 flex items-center justify-center p-1">
                 <img 
                   src="/images/matser-card.png" 
                   alt="Master Card" 
                   className="w-full h-full object-contain"
                 />
               </div>
-              <div className="w-10 h-10 flex items-center justify-center p-1">
+              <div className="w-20 h-20 flex items-center justify-center p-1">
                 <img 
                   src="/images/mpamba.png" 
                   alt="Mpamba" 
@@ -105,7 +114,11 @@ function HeroSection() {
                   <div className="flex flex-col items-center space-y-6 pt-12">
                     {/* SafeSats Logo in Phone */}
                     <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-xl border border-gray-300">
-                      <span className="text-black font-bold text-3xl">$</span>
+                      <img
+                        src="/images/logo.png"
+                        alt="SafeSats Logo"
+                        className="w-16 h-16 object-contain"
+                      />
                     </div>
 
                     {/* SafeSats Text */}

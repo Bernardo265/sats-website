@@ -23,8 +23,11 @@ function NewsletterSection() {
   };
 
   return (
-    <section className="relative z-10 px-6 py-20 bg-gradient-to-br from-green-900/20 via-gray-900 to-green-900/20">
-      <div className="max-w-4xl mx-auto text-center">
+    <section className="relative z-10 px-6 py-20 bg-gradient-to-br from-gray-900 via-green-900/20 to-gray-900">
+      {/* Top gradient overlay for smooth transition from blog section */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-gray-900/50 to-transparent pointer-events-none"></div>
+
+      <div className="max-w-4xl mx-auto text-center relative z-10">
         {/* Background decoration */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-10 left-10 w-32 h-32 bg-green-400/10 rounded-full blur-xl"></div>

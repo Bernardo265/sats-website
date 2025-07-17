@@ -38,8 +38,14 @@ function BlogSection() {
   };
 
   return (
-    <section className="relative z-10 px-6 py-20 bg-gray-800">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative z-10 px-6 py-20 bg-gradient-to-b from-gray-800 via-gray-800 to-gray-900">
+      {/* Top gradient overlay for smooth transition from testimonials section */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-gray-800/30 to-transparent pointer-events-none"></div>
+
+      {/* Bottom gradient overlay for smooth transition to newsletter section */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-gray-900/50 pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center space-y-6 mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight">

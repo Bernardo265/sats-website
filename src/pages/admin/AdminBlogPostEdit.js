@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 import { useCMS } from '../../contexts/CMSContext';
 import MediaLibrary from '../../components/admin/MediaLibrary';
+import RichTextEditor from '../../components/admin/RichTextEditor';
 import { getFileUrl } from '../../utils/fileUpload';
 
 function AdminBlogPostEdit() {
@@ -133,21 +132,7 @@ function AdminBlogPostEdit() {
     }
   };
 
-  const quillModules = {
-    toolbar: [
-      [{ 'header': [1, 2, 3, false] }],
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      ['blockquote', 'code-block'],
-      ['link'],
-      ['clean']
-    ],
-  };
 
-  const quillFormats = [
-    'header', 'bold', 'italic', 'underline', 'strike',
-    'list', 'bullet', 'blockquote', 'code-block', 'link'
-  ];
 
   if (loading) {
     return (
@@ -354,16 +339,11 @@ function AdminBlogPostEdit() {
         {/* Content Editor */}
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50">
           <h2 className="text-xl font-semibold text-white mb-4">Content</h2>
-          <div className="bg-white rounded-lg overflow-hidden">
-            <ReactQuill
-              theme="snow"
-              value={formData.content}
-              onChange={handleContentChange}
-              modules={quillModules}
-              formats={quillFormats}
-              style={{ minHeight: '300px' }}
-            />
-          </div>
+          <RichTextEditor
+            value={formData.content}
+            onChange={handleContentChange}
+            placeholder="Write your blog post content here..."
+          />
         </div>
 
         {/* Actions */}

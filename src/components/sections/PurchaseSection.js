@@ -1,9 +1,27 @@
 import React from 'react';
+import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 
 function PurchaseSection() {
+  const [ref, isIntersecting, hasIntersected] = useIntersectionObserver();
   return (
-    <section className="relative z-10 px-6 py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      <div className="max-w-7xl mx-auto">
+    <section
+      ref={ref}
+      className={`relative z-10 px-6 py-20 bg-gradient-to-b from-gray-800 via-gray-800 to-gray-700 transition-all duration-1000 ${
+        hasIntersected ? 'section-visible' : 'section-hidden'
+      }`}
+    >
+      {/* Top gradient overlay for smooth transition from hero */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-gray-800/30 to-transparent pointer-events-none"></div>
+
+      {/* Bottom gradient overlay for smooth transition to next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-gray-700/50 pointer-events-none"></div>
+
+      {/* Section divider at bottom */}
+      <div className="absolute bottom-8 left-0 right-0 flex justify-center pointer-events-none">
+        <div className="section-divider"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
           {/* Left Side - 3D Phone Illustration */}
