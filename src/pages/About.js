@@ -1,8 +1,31 @@
 import React from 'react';
+import SEOHead from '../components/common/SEOHead';
+import { generateStructuredData } from '../utils/seo';
 
 function About() {
+  const aboutPageData = {
+    title: 'About SafeSats - Leading Bitcoin Platform | Our Mission & Vision',
+    description: 'Learn about SafeSats mission to make Bitcoin accessible and secure for everyone. Discover our team, values, and commitment to revolutionizing cryptocurrency trading.',
+    keywords: 'about safesats, bitcoin platform, cryptocurrency company, blockchain technology, bitcoin mission, crypto team, digital assets',
+    url: '/about',
+    type: 'website',
+    image: '/images/safesats-about-og.jpg'
+  };
+
+  const breadcrumbData = [
+    { name: 'Home', url: '/' },
+    { name: 'About', url: '/about' }
+  ];
+
   return (
     <div className="px-6 py-20">
+      <SEOHead
+        pageData={aboutPageData}
+        structuredData={generateStructuredData('organization', aboutPageData)}
+      />
+      <SEOHead
+        structuredData={generateStructuredData('breadcrumb', breadcrumbData)}
+      />
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="text-center space-y-6 mb-16">

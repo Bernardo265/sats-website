@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import SEOHead from '../components/common/SEOHead';
 import { useCMS } from '../contexts/CMSContext';
+import { generateStructuredData, extractKeywords, calculateReadingTime, generateSocialShareUrls } from '../utils/seo';
+import { usePageTracking, useReadingProgress } from '../hooks/useAnalytics';
+import { initializeAnalytics } from '../utils/analytics';
 
 function BlogPost() {
   const { slug } = useParams();
   const { getBlogPostBySlug, getPublishedBlogPosts } = useCMS();
+  const contentRef = useRef(null);
 
   const blogPost = getBlogPostBySlug(slug);
   const allPosts = getPublishedBlogPosts();
+
+  // Initialize analytics
+  React.useEffect(() => {
+    initializeAnalytics();
+  }, []);
+
+  // Track page views and reading time
+  usePageTracking(slug, blogPost ? {
+    title: blogPost.title,
+    category: blogPost.category,
+    author: blogPost.author
+  } : {});
+
+  // Track reading progress
+  const { readingProgress } = useReadingProgress(contentRef, slug);
 
   // Get related posts (same category, excluding current post)
   const relatedPosts = allPosts
@@ -17,6 +37,14 @@ function BlogPost() {
   if (!blogPost) {
     return (
       <div className="px-6 py-20">
+        <SEOHead
+          pageData={{
+            title: 'Blog Post Not Found - SafeSats',
+            description: 'The blog post you are looking for could not be found.',
+            url: `/blog/${slug}`,
+            noIndex: true
+          }}
+        />
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl font-bold text-white mb-4">Post Not Found</h1>
           <p className="text-gray-300 mb-8">The blog post you're looking for doesn't exist.</p>
@@ -30,6 +58,31 @@ function BlogPost() {
       </div>
     );
   }
+
+  // Generate dynamic SEO data for the blog post
+  const postPageData = {
+    title: `${blogPost.title} | SafeSats Blog`,
+    description: blogPost.excerpt,
+    keywords: extractKeywords(blogPost.content, blogPost.category),
+    url: `/blog/${blogPost.slug}`,
+    type: 'article',
+    image: blogPost.featuredImage ? `/images/blog/${blogPost.featuredImage}` : '/images/safesats-blog-default.jpg',
+    author: blogPost.author,
+    publishedTime: blogPost.createdAt,
+    modifiedTime: blogPost.updatedAt || blogPost.createdAt
+  };
+
+  const breadcrumbData = [
+    { name: 'Home', url: '/' },
+    { name: 'Blog', url: '/blog' },
+    { name: blogPost.title, url: `/blog/${blogPost.slug}` }
+  ];
+
+  const shareUrls = generateSocialShareUrls(
+    `https://safesats.com/blog/${blogPost.slug}`,
+    blogPost.title,
+    blogPost.excerpt
+  );
 
   const getCategoryColor = (color) => {
     switch (color) {
@@ -63,6 +116,24 @@ function BlogPost() {
 
   return (
     <div className="px-6 py-20">
+      {/* Reading Progress Bar */}
+      <div className="fixed top-0 left-0 w-full h-1 bg-gray-800 z-50">
+        <div
+          className="h-full bg-green-400 transition-all duration-300 ease-out"
+          style={{ width: `${readingProgress}%` }}
+        ></div>
+      </div>
+
+      <SEOHead
+        pageData={postPageData}
+        structuredData={generateStructuredData('article', {
+          ...blogPost,
+          featuredImage: postPageData.image
+        })}
+      />
+      <SEOHead
+        structuredData={generateStructuredData('breadcrumb', breadcrumbData)}
+      />
       <div className="max-w-4xl mx-auto">
         {/* Back to Blog */}
         <div className="mb-8">
@@ -111,7 +182,8 @@ function BlogPost() {
 
         {/* Article Content */}
         <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50">
-          <div 
+          <div
+            ref={contentRef}
             className="prose prose-lg prose-invert max-w-none"
             dangerouslySetInnerHTML={{ __html: blogPost.content }}
             style={{

@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useCMS } from '../../contexts/CMSContext';
+import { getAnalyticsOverview, initializeAnalytics } from '../../utils/analytics';
 
 function AdminDashboard() {
   const { blogPosts, categories, getPublishedBlogPosts } = useCMS();
-  
+  const [analytics, setAnalytics] = useState(null);
+
   const publishedPosts = getPublishedBlogPosts();
   const draftPosts = blogPosts.filter(post => !post.published);
+
+  useEffect(() => {
+    initializeAnalytics();
+    const analyticsData = getAnalyticsOverview();
+    setAnalytics(analyticsData);
+  }, []);
   const totalPosts = blogPosts.length;
   const totalCategories = categories.length;
 
@@ -54,6 +62,27 @@ function AdminDashboard() {
         </svg>
       ),
       color: 'bg-purple-500'
+    },
+    {
+      title: 'Total Views',
+      value: analytics?.totalViews || 0,
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+      ),
+      color: 'bg-blue-500'
+    },
+    {
+      title: 'Engagement',
+      value: `${Math.round(analytics?.overallEngagement || 0)}%`,
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        </svg>
+      ),
+      color: 'bg-orange-500'
     }
   ];
 
@@ -139,6 +168,23 @@ function AdminDashboard() {
             <div>
               <h3 className="text-white font-semibold">Manage Categories</h3>
               <p className="text-gray-400 text-sm">Organize post categories</p>
+            </div>
+          </div>
+        </Link>
+
+        <Link
+          to="/admin/analytics"
+          className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50 hover:border-orange-400/30 transition-all duration-300 group"
+        >
+          <div className="flex items-center space-x-4">
+            <div className="bg-orange-400/20 p-3 rounded-lg group-hover:bg-orange-400/30 transition-colors">
+              <svg className="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-white font-semibold">View Analytics</h3>
+              <p className="text-gray-400 text-sm">Track content performance</p>
             </div>
           </div>
         </Link>

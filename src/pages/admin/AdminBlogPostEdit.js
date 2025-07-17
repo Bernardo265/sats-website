@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useCMS } from '../../contexts/CMSContext';
+import MediaLibrary from '../../components/admin/MediaLibrary';
+import { getFileUrl } from '../../utils/fileUpload';
 
 function AdminBlogPostEdit() {
   const { id } = useParams();
@@ -23,9 +25,12 @@ function AdminBlogPostEdit() {
     categoryColor: 'green',
     author: '',
     readTime: '',
-    featuredImage: 'gradient-green',
+    featuredImage: '',
     published: false
   });
+
+  const [showMediaLibrary, setShowMediaLibrary] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   // Load post data if editing
   useEffect(() => {
@@ -44,6 +49,18 @@ function AdminBlogPostEdit() {
           featuredImage: post.featuredImage,
           published: post.published
         });
+
+        // Load selected file if it exists
+        if (post.featuredImage) {
+          const fileUrl = getFileUrl(post.featuredImage);
+          if (fileUrl) {
+            setSelectedFile({
+              id: post.featuredImage,
+              fileName: post.featuredImage,
+              dataUrl: fileUrl
+            });
+          }
+        }
       } else {
         setError('Post not found');
       }
@@ -258,21 +275,62 @@ function AdminBlogPostEdit() {
             </div>
 
             <div>
-              <label htmlFor="featuredImage" className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-300 mb-2">
                 Featured Image
               </label>
-              <select
-                id="featuredImage"
-                name="featuredImage"
-                value={formData.featuredImage}
-                onChange={handleChange}
-                className="w-full px-4 py-3 bg-gray-900/50 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400/20 transition-all duration-300"
+
+              {/* Current featured image preview */}
+              {formData.featuredImage && (
+                <div className="mb-4 p-4 bg-gray-800/50 rounded-lg border border-gray-700">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm text-gray-300">Current Image:</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setFormData(prev => ({ ...prev, featuredImage: '' }));
+                        setSelectedFile(null);
+                      }}
+                      className="text-red-400 hover:text-red-300 text-sm transition-colors"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  <div className="w-32 h-32 rounded-lg overflow-hidden">
+                    <img
+                      src={getFileUrl(formData.featuredImage) || `/images/blog/${formData.featuredImage}`}
+                      alt="Featured"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Media library toggle */}
+              <button
+                type="button"
+                onClick={() => setShowMediaLibrary(!showMediaLibrary)}
+                className="w-full px-4 py-3 bg-gray-900/50 border border-gray-600 rounded-lg text-white hover:border-green-400 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400/20 transition-all duration-300 flex items-center justify-center space-x-2"
               >
-                <option value="gradient-green">Green Gradient</option>
-                <option value="gradient-blue">Blue Gradient</option>
-                <option value="gradient-orange">Orange Gradient</option>
-                <option value="gradient-purple">Purple Gradient</option>
-              </select>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span>{showMediaLibrary ? 'Hide' : 'Choose'} Media Library</span>
+              </button>
+
+              {/* Media library */}
+              {showMediaLibrary && (
+                <div className="mt-4 p-4 bg-gray-800/30 rounded-lg border border-gray-700">
+                  <MediaLibrary
+                    onSelectFile={(file) => {
+                      setFormData(prev => ({ ...prev, featuredImage: file.fileName }));
+                      setSelectedFile(file);
+                      setShowMediaLibrary(false);
+                    }}
+                    selectedFile={selectedFile}
+                    showUpload={true}
+                  />
+                </div>
+              )}
             </div>
           </div>
 

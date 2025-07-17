@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import SEOHead from '../components/common/SEOHead';
+import { generateStructuredData } from '../utils/seo';
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -9,6 +11,20 @@ function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+
+  const contactPageData = {
+    title: 'Contact SafeSats - Get in Touch | Customer Support & Inquiries',
+    description: 'Contact SafeSats for customer support, technical assistance, partnerships, or general inquiries. Our team is here to help with all your Bitcoin and cryptocurrency needs.',
+    keywords: 'contact safesats, customer support, bitcoin help, cryptocurrency support, technical assistance, partnership inquiries',
+    url: '/contact',
+    type: 'website',
+    image: '/images/safesats-contact-og.jpg'
+  };
+
+  const breadcrumbData = [
+    { name: 'Home', url: '/' },
+    { name: 'Contact', url: '/contact' }
+  ];
 
   const handleChange = (e) => {
     setFormData({
@@ -36,6 +52,13 @@ function Contact() {
 
   return (
     <div className="px-6 py-20">
+      <SEOHead
+        pageData={contactPageData}
+        structuredData={generateStructuredData('localBusiness', contactPageData)}
+      />
+      <SEOHead
+        structuredData={generateStructuredData('breadcrumb', breadcrumbData)}
+      />
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="text-center space-y-6 mb-16">
@@ -189,7 +212,7 @@ function Contact() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-white">Office</h3>
-                    <p className="text-gray-300">123 Blockchain Street</p>
+                    <p className="text-gray-300"># </p>
                     <p className="text-gray-300">Lilongwe City, CC 12345</p>
                     <p className="text-gray-400 text-sm">Malawi</p>
                   </div>

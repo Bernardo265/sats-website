@@ -16,6 +16,8 @@ import AdminLogin from './pages/admin/AdminLogin';
 import AdminBlogPosts from './pages/admin/AdminBlogPosts';
 import AdminBlogPostEdit from './pages/admin/AdminBlogPostEdit';
 import AdminCategories from './pages/admin/AdminCategories';
+import AdminMediaLibrary from './pages/admin/AdminMediaLibrary';
+import AdminAnalytics from './pages/admin/AdminAnalytics';
 
 function AppRouter() {
   return (
@@ -39,6 +41,8 @@ function AppRouter() {
           <Route path="/admin/blog-posts/new" element={<AdminLayout><AdminBlogPostEdit /></AdminLayout>} />
           <Route path="/admin/blog-posts/edit/:id" element={<AdminLayout><AdminBlogPostEdit /></AdminLayout>} />
           <Route path="/admin/categories" element={<AdminLayout><AdminCategories /></AdminLayout>} />
+          <Route path="/admin/media" element={<AdminLayout><AdminMediaLibrary /></AdminLayout>} />
+          <Route path="/admin/analytics" element={<AdminLayout><AdminAnalytics /></AdminLayout>} />
         </Routes>
       </Router>
     </CMSProvider>

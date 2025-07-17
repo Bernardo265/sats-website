@@ -1,12 +1,28 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import SEOHead from '../components/common/SEOHead';
 import { useCMS } from '../contexts/CMSContext';
+import { generateStructuredData, extractKeywords } from '../utils/seo';
 
 function Blog() {
   const { getPublishedBlogPosts, categories } = useCMS();
   const [selectedCategory, setSelectedCategory] = useState('all');
 
   const blogPosts = getPublishedBlogPosts();
+
+  const blogPageData = {
+    title: 'SafeSats Blog - Bitcoin News, Insights & Analysis | Cryptocurrency Updates',
+    description: 'Stay updated with the latest Bitcoin news, cryptocurrency insights, and blockchain analysis from SafeSats experts. In-depth articles on crypto trading, security, and market trends.',
+    keywords: 'bitcoin blog, cryptocurrency news, blockchain insights, crypto analysis, bitcoin trading tips, cryptocurrency market, safesats blog',
+    url: '/blog',
+    type: 'website',
+    image: '/images/safesats-blog-og.jpg'
+  };
+
+  const breadcrumbData = [
+    { name: 'Home', url: '/' },
+    { name: 'Blog', url: '/blog' }
+  ];
 
   const categoryOptions = [
     { id: 'all', name: 'All Posts' },
@@ -49,6 +65,13 @@ function Blog() {
 
   return (
     <div className="px-6 py-20">
+      <SEOHead
+        pageData={blogPageData}
+        structuredData={generateStructuredData('website', blogPageData)}
+      />
+      <SEOHead
+        structuredData={generateStructuredData('breadcrumb', breadcrumbData)}
+      />
       <div className="max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="text-center space-y-6 mb-16">
