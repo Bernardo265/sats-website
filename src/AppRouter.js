@@ -10,6 +10,7 @@ import TermsOfService from './pages/TermsOfService';
 import Help from './pages/Help';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
+import Compliance from './pages/Compliance';
 import AdminLayout from './components/admin/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminLogin from './pages/admin/AdminLogin';
@@ -33,6 +34,7 @@ function AppRouter() {
           <Route path="/help" element={<Layout><Help /></Layout>} />
           <Route path="/blog" element={<Layout><Blog /></Layout>} />
           <Route path="/blog/:slug" element={<Layout><BlogPost /></Layout>} />
+          <Route path="/compliance" element={<Layout><Compliance /></Layout>} />
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />

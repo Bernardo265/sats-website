@@ -126,7 +126,7 @@ export const generateStructuredData = (type, data) => {
         "email": "support@safesats.com",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "123 Blockchain Street",
+          "streetAddress": "Blockchain Street",
           "addressLocality": "Lilongwe City",
           "postalCode": "12345",
           "addressCountry": "MW"
