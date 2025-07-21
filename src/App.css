@@ -19,6 +19,257 @@ html {
   animation: float 3s ease-in-out infinite;
 }
 
+/* Logo floating animation */
+@keyframes logoFloat {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-8px) scale(1.02);
+  }
+}
+
+.logo-float {
+  animation: logoFloat 4s ease-in-out infinite;
+}
+
+/* Pulse glow animation for SafeSats orange */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.6);
+  }
+}
+
+.pulse-glow-orange {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Enhanced ambient glow movement */
+@keyframes ambientMove {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(20px, -15px) scale(1.1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-10px, 10px) scale(0.9);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translate(-20px, -5px) scale(1.05);
+    opacity: 0.6;
+  }
+}
+
+.ambient-move {
+  animation: ambientMove 8s ease-in-out infinite;
+}
+
+/* Phone tilt animation */
+@keyframes phoneTilt {
+  0%, 100% {
+    transform: rotate(3deg) scale(1);
+  }
+  50% {
+    transform: rotate(-1deg) scale(1.02);
+  }
+}
+
+.phone-tilt {
+  animation: phoneTilt 6s ease-in-out infinite;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.phone-tilt:hover {
+  animation-play-state: paused;
+  transform: rotate(0deg) scale(1.05) !important;
+}
+
+/* Payment method hover animations */
+.payment-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.payment-hover:hover {
+  transform: translateY(-8px) scale(1.1);
+  filter: brightness(1.2) drop-shadow(0 10px 20px rgba(249, 115, 22, 0.3));
+}
+
+/* Enhanced CTA button animations */
+.cta-enhanced {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cta-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(249, 115, 22, 0.4), transparent);
+  transition: left 0.5s ease-in-out;
+}
+
+.cta-enhanced:hover::before {
+  left: 100%;
+}
+
+.cta-enhanced:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
+}
+
+/* Scroll indicator animation */
+@keyframes scrollBounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(10px);
+    opacity: 1;
+  }
+}
+
+.scroll-indicator {
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+/* Counter animation */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.counter-animate {
+  animation: countUp 0.8s ease-out forwards;
+}
+
+/* Bitcoin price update animations */
+@keyframes priceUpdate {
+  0% {
+    background-color: rgba(249, 115, 22, 0.2);
+    transform: scale(1.02);
+  }
+  100% {
+    background-color: transparent;
+    transform: scale(1);
+  }
+}
+
+.price-update {
+  animation: priceUpdate 0.8s ease-out;
+}
+
+/* Price change flash animations */
+@keyframes priceFlashGreen {
+  0%, 100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(34, 197, 94, 0.1);
+  }
+}
+
+@keyframes priceFlashRed {
+  0%, 100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(239, 68, 68, 0.1);
+  }
+}
+
+.price-flash-green {
+  animation: priceFlashGreen 0.6s ease-in-out;
+}
+
+.price-flash-red {
+  animation: priceFlashRed 0.6s ease-in-out;
+}
+
+/* Live indicator pulse */
+@keyframes livePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.1);
+  }
+}
+
+.live-pulse {
+  animation: livePulse 2s ease-in-out infinite;
+}
+
+/* Smooth price transitions */
+.price-transition {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Loading shimmer effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Accessibility: Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .float-animation,
+  .logo-float,
+  .pulse-glow-orange,
+  .ambient-move,
+  .phone-tilt,
+  .scroll-indicator,
+  .price-update,
+  .price-flash-green,
+  .price-flash-red,
+  .live-pulse,
+  .shimmer {
+    animation: none;
+  }
+
+  .payment-hover:hover,
+  .cta-enhanced:hover,
+  .phone-tilt:hover {
+    transform: none;
+  }
+
+  .counter-animate,
+  .price-transition {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* Custom gradient for buttons - Updated to black and white */
 .gradient-white {
   background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);

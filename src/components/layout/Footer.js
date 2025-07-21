@@ -2,6 +2,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { InstagramLogo, FacebookLogo, LinkedinLogo } from 'phosphor-react';
 
+// Custom X (Twitter) Logo SVG Component
+const XLogo = ({ size = 24, className = "" }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+  >
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
+
 function Footer() {
   return (
     <footer className="relative z-10 bg-black text-white">
@@ -10,7 +23,7 @@ function Footer() {
         <div className="max-w-7xl mx-auto px-6 py-12">
           <div className="text-center space-y-8">
             <h3 className="text-2xl font-bold text-white">
-              Trusted by Leading <span className="text-orange-500">Partners</span>
+              Trusted by Leading <span className="text-green-500">Partners</span>
             </h3>
             <div className="flex flex-wrap items-center justify-center gap-8 opacity-60">
               {/* Partner/Sponsor Logos */}
@@ -70,14 +83,9 @@ function Footer() {
                 href="https://twitter.com/safesats"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-orange-500 transition-colors group"
+                className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500 transition-colors group"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" className="w-6 h-6 text-gray-400 group-hover:text-black">
-                  <rect width="256" height="256" fill="none"/>
-                  <polygon points="48 40 96 40 208 216 160 216 48 40" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
-                  <line x1="113.88" y1="143.53" x2="48" y2="216" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
-                  <line x1="208" y1="40" x2="142.12" y2="112.47" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="16"/>
-                </svg>
+                <XLogo size={24} className="text-gray-400 group-hover:text-black" />
               </a>
               <a
                 href="https://facebook.com/safesats"
@@ -110,10 +118,10 @@ function Footer() {
           <div className="space-y-6">
             <h4 className="text-lg font-semibold text-white">Quick Links</h4>
             <ul className="space-y-3">
-              <li><Link to="/about" className="text-gray-400 hover:text-orange-500 transition-colors">About Us</Link></li>
-              <li><Link to="/blog" className="text-gray-400 hover:text-orange-500 transition-colors">Blog</Link></li>
-              <li><Link to="/help" className="text-gray-400 hover:text-orange-500 transition-colors">Help Center</Link></li>
-              <li><Link to="/contact" className="text-gray-400 hover:text-orange-500 transition-colors">Contact</Link></li>
+              <li><Link to="/about" className="text-gray-400 hover:text-green-500 transition-colors">About Us</Link></li>
+              <li><Link to="/blog" className="text-gray-400 hover:text-green-500 transition-colors">Blog</Link></li>
+              <li><Link to="/help" className="text-gray-400 hover:text-green-500 transition-colors">Help Center</Link></li>
+              <li><Link to="/contact" className="text-gray-400 hover:text-green-500 transition-colors">Contact</Link></li>
             </ul>
           </div>
 
@@ -121,10 +129,10 @@ function Footer() {
           <div className="space-y-6">
             <h4 className="text-lg font-semibold text-white">Support</h4>
             <ul className="space-y-3">
-              <li><Link to="/help" className="text-gray-400 hover:text-orange-500 transition-colors">Help Center</Link></li>
-              <li><Link to="/contact" className="text-gray-400 hover:text-orange-500 transition-colors">Contact Us</Link></li>
-              <li><a href="mailto:support@safesats.com" className="text-gray-400 hover:text-orange-500 transition-colors">Email Support</a></li>
-              <li><a href="tel:+1234567890" className="text-gray-400 hover:text-orange-500 transition-colors">Phone Support</a></li>
+              <li><Link to="/help" className="text-gray-400 hover:text-green-500 transition-colors">Help Center</Link></li>
+              <li><Link to="/contact" className="text-gray-400 hover:text-green-500 transition-colors">Contact Us</Link></li>
+              <li><a href="mailto:support@safesats.com" className="text-gray-400 hover:text-green-500 transition-colors">Email Support</a></li>
+              <li><a href="tel:+1234567890" className="text-gray-400 hover:text-green-500 transition-colors">Phone Support</a></li>
             </ul>
           </div>
 
@@ -132,10 +140,10 @@ function Footer() {
           <div className="space-y-6">
             <h4 className="text-lg font-semibold text-white">Legal</h4>
             <ul className="space-y-3">
-              <li><Link to="/privacy" className="text-gray-400 hover:text-orange-500 transition-colors">Privacy Policy</Link></li>
-              <li><Link to="/terms" className="text-gray-400 hover:text-orange-500 transition-colors">Terms of Service</Link></li>
-              <li><a href="/cookie-policy" className="text-gray-400 hover:text-orange-500 transition-colors">Cookie Policy</a></li>
-              <li><Link to="/compliance" className="text-gray-400 hover:text-orange-500 transition-colors">Compliance</Link></li>
+              <li><Link to="/privacy" className="text-gray-400 hover:text-green-500 transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/terms" className="text-gray-400 hover:text-green-500 transition-colors">Terms of Service</Link></li>
+              <li><a href="/cookie-policy" className="text-gray-400 hover:text-green-500 transition-colors">Cookie Policy</a></li>
+              <li><Link to="/compliance" className="text-gray-400 hover:text-green-500 transition-colors">Compliance</Link></li>
             </ul>
           </div>
         </div>
@@ -146,7 +154,7 @@ function Footer() {
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="space-y-6">
             <h4 className="text-lg font-semibold text-white flex items-center">
-              <svg className="w-5 h-5 mr-2 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 mr-2 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               Legal Compliance & Regulatory Information

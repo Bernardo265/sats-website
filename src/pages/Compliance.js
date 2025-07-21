@@ -32,15 +32,15 @@ function Compliance() {
           {/* Hero Section */}
           <div className="text-center space-y-6 mb-16">
             <div className="flex justify-center mb-6">
-              <div className="w-16 h-16 bg-orange-500/20 rounded-full flex items-center justify-center">
-                <svg className="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
             </div>
             <h1 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
               Legal Compliance &<br />
-              <span className="text-orange-500">Regulatory Information</span>
+              <span className="text-green-500">Regulatory Information</span>
             </h1>
             <p className="text-xl text-white/80 leading-relaxed max-w-3xl mx-auto">
               Transparency and compliance are at the core of SafeSats operations. 
@@ -54,8 +54,8 @@ function Compliance() {
             <div className="bg-black/50 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
               <div className="space-y-6">
                 <div className="flex items-center space-x-3 mb-6">
-                  <div className="w-8 h-8 bg-orange-500/20 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
+                    <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
                   </div>
@@ -110,8 +110,8 @@ function Compliance() {
             <div className="bg-black/50 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
               <div className="space-y-6">
                 <div className="flex items-center space-x-3 mb-6">
-                  <div className="w-8 h-8 bg-orange-500/20 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-8 h-8 bg-green-500/20 rounded-lg flex items-center justify-center">
+                    <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
@@ -127,7 +127,7 @@ function Compliance() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-gray-900/50 rounded-lg p-6 border border-white/5">
                       <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
-                        <span className="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                        <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
                         Legal Status
                       </h3>
                       <p className="text-white/70 leading-relaxed">
@@ -138,7 +138,7 @@ function Compliance() {
                     
                     <div className="bg-gray-900/50 rounded-lg p-6 border border-white/5">
                       <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
-                        <span className="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                        <span className="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
                         Operational Compliance
                       </h3>
                       <p className="text-white/70 leading-relaxed">
@@ -152,10 +152,10 @@ function Compliance() {
             </div>
 
             {/* Important Disclaimers */}
-            <div className="bg-orange-500/10 border border-orange-500/20 rounded-2xl p-8">
+            <div className="bg-green-500/10 border border-green-500/20 rounded-2xl p-8">
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <svg className="w-6 h-6 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
                   </svg>
                   <h3 className="text-xl font-bold text-white">Important Disclaimers</h3>
@@ -174,7 +174,7 @@ function Compliance() {
                   </p>
                   
                   <p className="leading-relaxed">
-                    <strong>Regulatory Changes:</strong> The regulatory landscape for cryptocurrencies is evolving. 
+                    <strong>Regulatory Changes:</strong> The regulatory landscape for Bitcoin is evolving. 
                     SafeSats monitors regulatory developments and adapts operations as necessary to maintain compliance.
                   </p>
                 </div>
@@ -191,13 +191,13 @@ function Compliance() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a 
                   href="/contact" 
-                  className="bg-orange-500 hover:bg-orange-600 text-black px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                  className="bg-green-500 hover:bg-green-600 text-black px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105"
                 >
                   Contact Compliance Team
                 </a>
                 <a 
                   href="mailto:compliance@safesats.com" 
-                  className="border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-black px-8 py-3 rounded-lg font-semibold transition-all duration-300"
+                  className="border border-green-500 text-green-500 hover:bg-green-500 hover:text-black px-8 py-3 rounded-lg font-semibold transition-all duration-300"
                 >
                   Email: compliance@safesats.com
                 </a>

@@ -2,6 +2,7 @@
 
 ![SafeSats](https://img.shields.io/badge/SafeSats-Bitcoin%20Platform-orange?style=for-the-badge)
 ![React](https://img.shields.io/badge/React-19.1.0-blue?style=for-the-badge&logo=react)
+![Supabase](https://img.shields.io/badge/Supabase-Backend-green?style=for-the-badge&logo=supabase)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4.17-blue?style=for-the-badge&logo=tailwindcss)
 ![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)
 ![Legal Compliance](https://img.shields.io/badge/Legal-Compliant-orange?style=for-the-badge)
@@ -90,12 +91,30 @@ The platform serves as a comprehensive solution for Bitcoin transactions, featur
 - **Tax Obligations**: Guidance on cryptocurrency taxation under Malawi law
 - **User Education**: Clear disclaimers and educational content about legal responsibilities
 
+### 🗄️ Database Integration Features
+- **Complete Supabase Integration**: Full-featured database system with PostgreSQL backend
+- **Enhanced Security**: Input validation, rate limiting, XSS protection, and SQL injection prevention
+- **Performance Optimization**: Query caching, connection pooling, and performance monitoring
+- **Health Monitoring**: Real-time database health checks and system diagnostics
+- **Comprehensive Testing**: 69+ tests covering database operations, security, and performance
+- **Row Level Security**: Advanced RLS policies ensuring user data protection
+- **Error Handling**: Robust error handling with fallback mechanisms and retry logic
+- **Documentation**: Complete API documentation and best practices guide
+
 ## 🛠 Technology Stack
 
 ### Core Technologies
 - **React 19.1.0**: Latest React with concurrent features and improved performance
 - **React Router DOM 7.7.0**: Advanced routing with data loading and error boundaries
 - **Tailwind CSS 3.4.17**: Utility-first CSS framework with custom configuration
+- **Supabase 2.48.0**: Complete backend-as-a-service with PostgreSQL database
+
+### Database & Backend
+- **Comprehensive Database Integration**: Complete Supabase integration with enhanced security
+- **Performance Optimization**: Query caching, connection pooling, and performance monitoring
+- **Security Features**: Input validation, rate limiting, XSS protection, and audit logging
+- **Health Monitoring**: Real-time database health checks and system diagnostics
+- **Row Level Security**: Advanced RLS policies for data protection
 
 ### UI & Icons
 - **Phosphor React 1.4.1**: Comprehensive icon library for consistent iconography
@@ -296,6 +315,60 @@ The SafeSats website features a sophisticated gradient transition system that cr
 - **react-quill**: Enables rich text editing capabilities
 - **web-vitals**: Monitors and optimizes Core Web Vitals performance metrics
 
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+- A Supabase account
+
+### Setup Instructions
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd sats-website
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up Supabase Database**
+   - Create a new Supabase project at [supabase.com](https://supabase.com)
+   - Run the database schema from `docs/database-schema.sql`
+   - Configure Row Level Security (RLS) policies
+   - Set up authentication settings
+
+4. **Configure environment variables**
+   ```bash
+   cp .env.example .env
+   ```
+   Then edit `.env` with your Supabase credentials and database settings:
+   ```env
+   REACT_APP_SUPABASE_URL=https://your-project-id.supabase.co
+   REACT_APP_SUPABASE_ANON_KEY=your-anon-key-here
+   ```
+
+5. **Start the development server**
+   ```bash
+   npm start
+   ```
+
+6. **Initialize the database integration**
+   ```bash
+   # The database will auto-initialize when the app starts
+   # Check browser console for initialization status
+   ```
+
+7. **Test the setup**
+   - Navigate to `/start-trading` and register a new account
+   - Check email verification
+   - Test the trading simulator
+   - Run database tests: `npm test -- --testPathPattern=database`
+
 ## 🔧 Development
 
 ### Available Scripts
@@ -306,6 +379,14 @@ npm start          # Start development server on http://localhost:3000
 npm test           # Run test suite in watch mode
 npm run build      # Create production build in ./build directory
 npm run eject      # Eject from Create React App (irreversible)
+```
+
+#### Database Testing
+```bash
+npm test -- --testPathPattern=database.integration.test.js  # Database integration tests
+npm test -- --testPathPattern=security.test.js             # Security validation tests
+npm test -- --testPathPattern=performance.test.js          # Performance optimization tests
+npm test -- --testPathPattern=integration.suite.test.js    # Complete integration suite
 ```
 
 #### Development Workflow
@@ -380,12 +461,23 @@ This project is proprietary software developed for SafeSats. All rights reserved
 
 This is a private project. For internal development guidelines and contribution processes, please contact the development team.
 
+## 📚 Documentation
+
+### Database Integration
+- **[Database Integration Guide](docs/database-integration-guide.md)**: Comprehensive guide for database operations
+- **[Database Quick Reference](docs/database-quick-reference.md)**: Quick reference for common operations
+- **[Database Schema](docs/database-schema.sql)**: Complete database schema with RLS policies
+
+### Additional Resources
+- **[Supabase Setup Guide](docs/supabase-setup.md)**: Step-by-step Supabase configuration
+- **Internal Development Wiki**: Detailed development guidelines and processes
+
 ## 📞 Support
 
 For technical support or questions about the SafeSats platform:
 - **Website**: [SafeSats Official](https://safesats.com)
 - **Email**: support@safesats.com
-- **Documentation**: Internal development wiki
+- **Database Issues**: Check the database integration guide and health monitoring tools
 
 ---
 
