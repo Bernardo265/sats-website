@@ -14,11 +14,11 @@ function PremierPlatformSection() {
         <div className="text-center space-y-6 mb-16">
           <h2 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
             The Premier Platform for<br />
-            <span className="text-white">Bitcoin buying & selling</span>
+            <span className="text-white">Bitcoin Purchasing</span>
           </h2>
           <p className="text-xl text-gray-300 leading-relaxed max-w-4xl mx-auto">
-            Safesats the premier platform, ensures security & convenient bitcoin 
-            buying & selling with a diverse range of cryptocurrencies.
+            Safesats the premier platform, ensures security & convenient bitcoin
+            purchasing with reliable local payment methods.
           </p>
         </div>
 
@@ -38,8 +38,10 @@ function PremierPlatformSection() {
               <div className="space-y-4">
                 <h3 className="text-2xl font-bold text-white">Trustworthy & Security</h3>
                 <p className="text-gray-300 leading-relaxed">
-                  Place your trust in Safesats for your cryptocurrency holdings. We're a reliable trading 
-                  platform that regularly validates the safety of your funds through.
+                  SafeSats ensures secure Bitcoin transactions through verified payment processing 
+                  and Lightning Network integration. We facilitate seamless exchanges between mobile money 
+                  and Bitcoin.
+
                 </p>
               </div>
             </div>
@@ -59,8 +61,9 @@ function PremierPlatformSection() {
               <div className="space-y-4">
                 <h3 className="text-2xl font-bold text-white">Swift Transactions</h3>
                 <p className="text-gray-300 leading-relaxed">
-                  Place your trust in Safesats for your cryptocurrency holdings. We're a reliable trading 
-                  platform that regularly validates the safety of your funds through.
+                 Experience lightning-fast Bitcoin transactions with Safesats. Our advanced 
+                 infrastructure ensures your trades are executed instantly with minimal delays, 
+                 giving you the speed advantage in the fast-paced bitcoin market.
                 </p>
               </div>
             </div>

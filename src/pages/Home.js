@@ -11,11 +11,11 @@ import { generateStructuredData } from '../utils/seo';
 function Home() {
   const homePageData = {
     title: 'SafeSats - The Premier Bitcoin Platform | Secure Crypto Trading',
-    description: 'Join SafeSats, the leading Bitcoin platform trusted by thousands. Secure trading, advanced analytics, and expert insights for cryptocurrency enthusiasts and professionals.',
-    keywords: 'bitcoin platform, cryptocurrency trading, secure bitcoin wallet, crypto exchange, blockchain technology, digital assets, bitcoin investment, safesats',
+    description: 'Join SafeSats, the leading Bitcoin platform trusted by thousands. Secure trading, advanced analytics, and expert insights for bitcoin enthusiasts and professionals.',
+    keywords: 'bitcoin platform, cryptocurrency trading, secure bitcoin wallet, Bitcoin exchange, blockchain technology, digital assets, bitcoin investment, safesats',
     url: '/',
     type: 'website',
-    image: '/images/safesats-home-og.jpg'
+    image: '/images/logo.jpg'
   };
 
   const breadcrumbData = [

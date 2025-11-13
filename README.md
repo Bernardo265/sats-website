@@ -1,4 +1,4 @@
-# SafeSats - Bitcoin Trading Platform
+# SafeSats - Bitcoin Purchase Platform
 
 ![SafeSats](https://img.shields.io/badge/SafeSats-Bitcoin%20Platform-green?style=for-the-badge)
 ![React](https://img.shields.io/badge/React-19.1.0-blue?style=for-the-badge&logo=react)
@@ -7,9 +7,9 @@
 
 ## 🚀 Project Overview
 
-SafeSats is a modern, secure Bitcoin purchasing platform that provides users with a seamless experience for buying and selling Bitcoin using local payment methods. Built with React and featuring a sophisticated design system, SafeSats offers a professional-grade cryptocurrency trading interface with emphasis on security, user experience, and accessibility.
+SafeSats is a modern, secure Bitcoin purchasing platform that provides users with a seamless experience for buying Bitcoin using local payment methods. Built with React and featuring a sophisticated design system, SafeSats offers a professional-grade Bitcoin purchase interface with emphasis on security, user experience, and accessibility.
 
-The platform serves as a comprehensive solution for Bitcoin transactions, featuring real-time market data, secure payment processing, and an intuitive user interface designed for both beginners and experienced traders.
+The platform serves as a comprehensive solution for Bitcoin purchases, featuring real-time market data, secure payment processing, and an intuitive user interface designed for both beginners and experienced Bitcoin buyers.
 
 ## ✨ Features
 
@@ -20,10 +20,27 @@ The platform serves as a comprehensive solution for Bitcoin transactions, featur
 - **Payment Method Integration**: Visual showcase of supported payment methods (Mukuru, Mpamba, etc.)
 - **Responsive Design**: Adaptive layout that hides complex elements on mobile devices
 
-### 💰 Purchase Section
+### 💰 Bitcoin Purchase System
+- **Airtel Money Integration**: Full integration with Airtel Money API for seamless mobile payments
+- **Real-time Bitcoin Pricing**: Live Bitcoin price feeds with automatic updates and fallback mechanisms
+- **Multi-step Purchase Flow**: Intuitive 4-step process from amount selection to transaction completion
+- **Payment Method Selection**: Support for multiple payment methods with extensible architecture
+- **Transaction Management**: Complete transaction tracking, status updates, and history management
+- **Form Validation**: Real-time validation with user-friendly error messages
+- **Responsive Design**: Optimized for both desktop and mobile Bitcoin purchasing
+
+### 🔄 Payment Processing
+- **Secure API Integration**: Bank-level security with encrypted payment processing via Airtel Money API
+- **Real-time Status Updates**: Live transaction status monitoring with automatic polling
+- **Error Handling**: Comprehensive error handling with retry mechanisms and user feedback
+- **Transaction History**: Complete audit trail with export functionality (JSON/CSV)
+- **Loading States**: Smooth loading animations and progress indicators
+- **Toast Notifications**: Real-time user feedback for all payment operations
+
+### 💰 Purchase Section (Legacy)
 - **Intersection Observer Animations**: Smooth fade-in effects triggered by scroll position
 - **Step-by-Step Guide**: Visual walkthrough of the Bitcoin purchasing process
-- **Interactive Phone Displays**: Animated mobile interfaces showing BUY/SELL actions
+- **Interactive Phone Displays**: Animated mobile interfaces showing Bitcoin purchase actions
 - **Progressive Enhancement**: Enhanced animations and transitions for better UX
 
 ### 🏆 Premier Platform Showcase
@@ -140,14 +157,17 @@ sats-website/
 ├── src/
 │   ├── components/            # Reusable React components
 │   │   ├── admin/            # Admin panel components
-│   │   ├── common/           # Shared components (SEO, etc.)
+│   │   ├── common/           # Shared components (SEO, ErrorBoundary, etc.)
 │   │   ├── layout/           # Layout components (Header, Footer)
+│   │   ├── payment/          # Payment system components
 │   │   └── sections/         # Page section components
-│   ├── contexts/             # React Context providers
-│   ├── hooks/                # Custom React hooks
-│   ├── pages/                # Page components
+│   ├── contexts/             # React Context providers (Payment, CMS)
+│   ├── hooks/                # Custom React hooks (useToast, etc.)
+│   ├── pages/                # Page components (BuyBitcoin, etc.)
+│   ├── services/             # API services (Airtel Money, Bitcoin, Transaction)
 │   ├── styles/               # CSS and styling files
-│   ├── utils/                # Utility functions
+│   ├── utils/                # Utility functions (config, error handling)
+│   ├── __tests__/            # Test files (unit, integration)
 │   ├── App.js                # Main application component
 │   ├── App.css               # Global styles and animations
 │   ├── index.js              # Application entry point
@@ -172,9 +192,59 @@ sats-website/
 - **BlogSection**: Latest blog posts with CMS integration
 - **NewsletterSection**: Email subscription with form validation
 
+#### Payment Components
+- **PaymentMethodSelector**: Interactive payment method selection with real-time validation
+- **AirtelMoneyForm**: Secure Airtel Money payment form with phone number validation
+- **TransactionStatus**: Real-time transaction status tracking with progress indicators
+- **TransactionHistory**: Complete transaction history with filtering and export capabilities
+
 #### Utility Components
 - **SEOHead**: Meta tags and structured data management
 - **RichTextEditor**: Content creation and editing interface
+- **ErrorBoundary**: Application-wide error handling and recovery
+- **LoadingSpinner**: Customizable loading states and animations
+- **Toast**: User feedback notifications system
+
+## 💳 Payment System Architecture
+
+### Airtel Money Integration (Malawi)
+The SafeSats platform features a complete Airtel Money payment integration specifically configured for the Malawian market, enabling users to purchase Bitcoin using their mobile money wallets:
+
+#### Key Features
+- **OAuth2 Authentication**: Secure API authentication with automatic token refresh
+- **Phone Number Validation**: Real-time validation for Malawian Airtel Money numbers (+265 country code)
+- **Transaction Tracking**: Complete transaction lifecycle management from initiation to completion
+- **Status Polling**: Automatic status updates with exponential backoff retry logic
+- **Error Handling**: Comprehensive error mapping and user-friendly messaging
+- **Malawi Market Configuration**: Optimized for Malawian Kwacha (MWK) currency and local payment limits
+
+#### Payment Flow
+1. **Amount Selection**: Users enter the desired Bitcoin amount or fiat equivalent
+2. **Payment Method Selection**: Choose from available payment methods (Airtel Money active)
+3. **Payment Form**: Secure form with phone number validation and confirmation
+4. **Transaction Processing**: Real-time status updates with USSD confirmation prompts
+5. **Completion**: Bitcoin delivery confirmation with transaction receipt
+
+#### Technical Implementation
+- **Service Layer**: Modular service architecture with `airtelMoneyService`, `bitcoinService`, and `transactionService`
+- **State Management**: React Context API for payment state with reducer pattern
+- **Local Storage**: Transaction history persistence with export capabilities
+- **Error Boundaries**: Application-level error handling with graceful degradation
+- **Testing**: Comprehensive unit and integration tests for payment flows
+
+### Malawi Market Configuration
+- **Currency**: Malawian Kwacha (MWK) as the primary currency
+- **Phone Numbers**: Support for Malawian phone number formats (+265 country code)
+- **Payment Limits**: MWK 5,000 minimum to MWK 2,000,000 maximum purchase amounts
+- **Timezone**: Africa/Blantyre timezone configuration
+- **Locale**: English language with Malawian number formatting
+- **API Endpoints**: Configured for Malawi-specific Airtel Money services
+
+### Security Features
+- **API Encryption**: All API communications use HTTPS with proper authentication
+- **Input Validation**: Client-side and server-side validation for all payment data
+- **Error Logging**: Comprehensive error tracking without exposing sensitive data
+- **Token Management**: Secure token storage with automatic expiration handling
 
 ## 🎨 Styling System
 

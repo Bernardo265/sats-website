@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import BitcoinPriceWidget from '../common/BitcoinPriceWidget';
 
 function HeroSection() {
   return (
@@ -17,24 +18,35 @@ function HeroSection() {
           <div className="space-y-6">
             <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
               The SafeSats Way to<br />
-              <span className="text-white">Buy & Sell Bitcoin</span>
+              <span className="text-white">Buy Bitcoin</span>
             </h1>
 
             <p className="text-xl text-gray-300 leading-relaxed max-w-lg">
               Safesats provides a secure, fast and user friendly platform
-              for buying and selling Bitcoin with local payments methods.
+              for buying Bitcoin with local payment methods.
             </p>
+          </div>
+
+          {/* Bitcoin Price Widget */}
+          <div className="max-w-sm">
+            <BitcoinPriceWidget size="default" />
           </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link
-              to="/contact"
-              className="bg-white text-black px-8 py-4 rounded-lg font-semibold btn-enhanced-hover glow-green text-center relative overflow-hidden group"
-            >
-              <span className="relative z-10">Get Started Today</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-blue-500 opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-            </Link>
+            <div className="relative flex ">
+              <Link
+                to="/buy"
+                className="bg-green-400 text-black px-8 py-4 rounded-lg font-semibold btn-enhanced-hover glow-green text-center overflow-hidden group"
+                onClick={(e) => e.preventDefault()}
+              >
+                <span className="relative z-10">Buy Bitcoin Now</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-green-300 to-green-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+              </Link>
+              <span className="absolute block -top-2.5 -right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-0.5 rounded-full transform rotate-6 shadow-md">
+                Coming Soon
+              </span>
+            </div>
             <Link
               to="/about"
               className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold btn-enhanced-hover hover:bg-white hover:text-black text-center relative overflow-hidden group"
@@ -65,34 +77,66 @@ function HeroSection() {
             <p className="text-gray-400 text-sm mb-4">Accepted payment methods:</p>
             <div className="flex items-center space-x-4">
               {/* Payment method logos */}
-              <div className="w-20 h-20 flex items-center justify-center p-1">
-                <img 
-                  src="/images/mukuru.png" 
-                  alt="Mukuru" 
+              <div className="w-20 h-20 flex items-center justify-center p-1 relative group cursor-pointer hover:scale-105 transition-transform duration-300">
+                <img
+                  src="/images/airtel-money.png"
+                  alt="Airtel Money"
                   className="w-full h-full object-contain"
                 />
+                {/* Active indicator */}
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full flex items-center justify-center">
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                </div>
+                {/* Tooltip */}
+                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-green-400 text-black text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                  Available Now!
+                </div>
               </div>
-              <div className="w-20 h-20 flex items-center justify-center p-1">
-                <img 
-                  src="/images/airtel-money.png" 
-                  alt="Airtel Money" 
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <div className="w-20 h-20 flex items-center justify-center p-1">
-                <img 
-                  src="/images/matser-card.png" 
-                  alt="Master Card" 
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              <div className="w-20 h-20 flex items-center justify-center p-1">
-                <img 
+              <div className="w-20 h-20 flex items-center justify-center p-1 relative group cursor-pointer hover:scale-105 transition-transform duration-300">
+                <img
                   src="/images/mpamba.png" 
                   alt="Mpamba" 
                   className="w-full h-full object-contain"
                 />
+                {/* Active indicator */}
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full flex items-center justify-center">
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                </div>
+                {/* Tooltip */}
+                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-green-400 text-black text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                  Available Now!
+                </div>
               </div>
+              <div className="w-20 h-20 flex items-center justify-center p-1 relative group cursor-pointer hover:scale-105 transition-transform duration-300">
+                <img
+                  src="/images/matser-card.png"
+                  alt="Master Card"
+                  className="w-full h-full object-contain"
+                />
+                {/* Active indicator */}
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full flex items-center justify-center">
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                </div>
+                {/* Tooltip */}
+                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-green-400 text-black text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                  Available Now!
+                </div>
+              </div>
+              <div className="w-20 h-20 flex items-center justify-center p-1 relative group cursor-pointer hover:scale-105 transition-transform duration-300">
+                <img
+                  src="/images/VISA-logo.png"
+                  alt="Master Card"
+                  className="w-full h-full object-contain"
+                />
+                {/* Active indicator */}
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full flex items-center justify-center">
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                </div>
+                {/* Tooltip */}
+                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-green-400 text-black text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                  Available Now!
+                </div>
+              </div>              
             </div>
           </div>
         </div>
@@ -113,7 +157,7 @@ function HeroSection() {
                   {/* Top Section - Logo and SafeSats text */}
                   <div className="flex flex-col items-center space-y-6 pt-12">
                     {/* SafeSats Logo in Phone */}
-                    <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center shadow-xl border border-gray-300">
+                    <div className="w-24 h-24 bg- rounded-full flex items-center justify-center shadow-xl border border-gray-300">
                       <img
                         src="/images/logo.png"
                         alt="SafeSats Logo"
@@ -136,10 +180,10 @@ function HeroSection() {
                   {/* Bottom Section - Buttons */}
                   <div className="w-full space-y-4 pb-8">
                     <button className="w-full bg-white/95 text-gray-700 py-4 rounded-2xl font-medium text-lg shadow-lg hover:bg-white transition-all duration-300">
-                      I'm new here
+                      Buy Sats
                     </button>
-                    <button className="w-full text-white/90 py-4 rounded-2xl font-medium text-lg border-0 bg-transparent hover:text-white transition-all duration-300">
-                      Sign In
+                    <button className="border-2 border-white w-full text-white/90 py-4 rounded-2xl font-medium text-lg  bg-transparent hover:text-white transition-all duration-300">
+                      Sell Sats
                     </button>
                   </div>
                 </div>

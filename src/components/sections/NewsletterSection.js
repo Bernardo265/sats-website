@@ -42,7 +42,7 @@ function NewsletterSection() {
             </h2>
             <p className="text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
               Get the latest Bitcoin news, market insights, and SafeSats updates delivered straight to your inbox. 
-              Join over 10,000 subscribers who trust us for cryptocurrency insights.
+              Join over 10,000 subscribers who trust us for Bitcoin insights.
             </p>
           </div>
 

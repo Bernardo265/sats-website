@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEOHead from '../components/common/SEOHead';
 import { useCMS } from '../contexts/CMSContext';
-import { generateStructuredData, extractKeywords } from '../utils/seo';
+import { generateStructuredData } from '../utils/seo';
 
 function Blog() {
   const { getPublishedBlogPosts, categories } = useCMS();

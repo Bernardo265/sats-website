@@ -47,7 +47,7 @@ function About() {
             <p className="text-gray-300 leading-relaxed">
               At SafeSats, we believe that everyone should have access to the financial freedom that Bitcoin provides. 
               Our platform is designed to remove the barriers and complexities that often prevent people from entering 
-              the cryptocurrency space.
+              the Bitcoin space.
             </p>
             <p className="text-gray-300 leading-relaxed">
               We're committed to providing a secure, user-friendly, and transparent platform that empowers individuals 
@@ -138,37 +138,44 @@ function About() {
             {/* Team Member 1 */}
             <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 text-center">
               <div className="w-24 h-24 bg-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-black font-bold text-2xl">GG</span>
+                <span className="text-black font-bold text-2xl">G.G</span>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Grand Gombwa</h3>
+              <h3 className="text-xl font-bold text-white mb-2">Grant Gombwa</h3>
               <p className="text-green-400 mb-4">CEO & Founder</p>
-              <p className="text-gray-300 text-sm">
+              {/* <p className="text-gray-300 text-sm">
                 10+ years in fintech and blockchain technology. Passionate about making cryptocurrency accessible to everyone.
-              </p>
+              </p> */}
             </div>
 
             {/* Team Member 2 */}
             <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 text-center">
               <div className="w-24 h-24 bg-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-black font-bold text-2xl">KP</span>
+                <span className="text-black font-bold text-2xl">K.P</span>
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Kennedy Phiri</h3>
               <p className="text-green-400 mb-4">CTO</p>
-              <p className="text-gray-300 text-sm">
+              {/* <p className="text-gray-300 text-sm">
                 Expert in cybersecurity and blockchain development. Ensures SafeSats maintains the highest security standards.
-              </p>
+              </p> */}
             </div>
 
             {/* Team Member 3 */}
             <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 text-center">
               <div className="w-24 h-24 bg-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-black font-bold text-2xl">WP</span>
+                <span className="text-black font-bold text-2xl">W.P</span>
               </div>
               <h3 className="text-xl font-bold text-white mb-2">Wilfred Phiri</h3>
               <p className="text-green-400 mb-4">Head of Operations</p>
-              <p className="text-gray-300 text-sm">
+              {/* <p className="text-gray-300 text-sm">
                 Experienced operations leader focused on delivering exceptional customer experiences and platform reliability.
-              </p>
+              </p> */}
+            </div>
+            <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700/50 text-center">
+              <div className="w-24 h-24 bg-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-black font-bold text-2xl">V.S</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">Victor Siliya</h3>
+              <p className="text-green-400 mb-4">Head of Finance</p>
             </div>
           </div>
         </div>

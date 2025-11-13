@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CMSProvider } from './contexts/CMSContext';
+import { PaymentProvider } from './contexts/PaymentContext';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -10,6 +11,7 @@ import TermsOfService from './pages/TermsOfService';
 import Help from './pages/Help';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
+// // import BuyBitcoin from './pages/BuyBitcoin';
 import AdminLayout from './components/admin/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminLogin from './pages/admin/AdminLogin';
@@ -22,17 +24,19 @@ import AdminAnalytics from './pages/admin/AdminAnalytics';
 function AppRouter() {
   return (
     <CMSProvider>
-      <Router>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<Layout><Home /></Layout>} />
-          <Route path="/about" element={<Layout><About /></Layout>} />
-          <Route path="/contact" element={<Layout><Contact /></Layout>} />
-          <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
-          <Route path="/terms" element={<Layout><TermsOfService /></Layout>} />
-          <Route path="/help" element={<Layout><Help /></Layout>} />
-          <Route path="/blog" element={<Layout><Blog /></Layout>} />
-          <Route path="/blog/:slug" element={<Layout><BlogPost /></Layout>} />
+      <PaymentProvider>
+        <Router>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<Layout><Home /></Layout>} />
+            <Route path="/about" element={<Layout><About /></Layout>} />
+            <Route path="/contact" element={<Layout><Contact /></Layout>} />
+            <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
+            <Route path="/terms" element={<Layout><TermsOfService /></Layout>} />
+            <Route path="/help" element={<Layout><Help /></Layout>} />
+            <Route path="/blog" element={<Layout><Blog /></Layout>} />
+            <Route path="/blog/:slug" element={<Layout><BlogPost /></Layout>} />
+            {/* <Route path="/buy" element={<BuyBitcoin />} /> */}
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
@@ -45,6 +49,7 @@ function AppRouter() {
           <Route path="/admin/analytics" element={<AdminLayout><AdminAnalytics /></AdminLayout>} />
         </Routes>
       </Router>
+      </PaymentProvider>
     </CMSProvider>
   );
 }

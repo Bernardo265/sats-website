@@ -2,7 +2,7 @@ import React from 'react';
 import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 
 function PurchaseSection() {
-  const [ref, isIntersecting, hasIntersected] = useIntersectionObserver();
+  const [ref, , hasIntersected] = useIntersectionObserver();
   return (
     <section
       ref={ref}
@@ -79,7 +79,8 @@ function PurchaseSection() {
                   <span className="text-white font-bold text-sm">1</span>
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold text-lg mb-1">Create a Safesats Account</h3>
+                  <h3 className="text-white font-semibold text-lg mb-1">Enter Amount</h3>
+                  <p className="text-gray-300 text-sm">Choose to buy or sell sats. Enter the amount in MWK or satoshis you want to exchange.</p>
                 </div>
               </div>
 
@@ -89,7 +90,8 @@ function PurchaseSection() {
                   <span className="text-white font-bold text-sm">2</span>
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold text-lg mb-1">Verify Your Account</h3>
+                   <h3 className="text-white font-semibold text-lg mb-1">Provide Payment Details</h3>
+                   <p className="text-gray-300 text-sm">Enter your mobile money number and Lightning Network invoice details for the transaction.</p>
                 </div>
               </div>
 
@@ -99,8 +101,8 @@ function PurchaseSection() {
                   <span className="text-white font-bold text-sm">3</span>
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold text-lg mb-1">Add a Payment Method</h3>
-                  <p className="text-gray-300 text-sm">Add your credit card or other payment methods to buy Bitcoin. Safesats supports over 7 payment methods.</p>
+                   <h3 className="text-white font-semibold text-lg mb-1">Complete Mobile Money Payment</h3>
+                   <p className="text-gray-300 text-sm">Pay securely using Airtel Money, TNM Mpamba, or other supported Malawian mobile money services.</p>
                 </div>
               </div>
 
@@ -110,8 +112,8 @@ function PurchaseSection() {
                   <span className="text-white font-bold text-sm">4</span>
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold text-lg mb-1">Buy Bitcoin</h3>
-                  <p className="text-gray-300 text-sm">Easy purchase Bitcoin on Safesats with straightforward guide for hassle-free transactions.</p>
+                  <h3 className="text-white font-semibold text-lg mb-1">Receive Your Sats Instantly</h3>
+                  <p className="text-gray-300 text-sm">Once payment is confirmed, sats are sent to your Lightning Network wallet within minutes.</p>
                 </div>
               </div>
             </div>

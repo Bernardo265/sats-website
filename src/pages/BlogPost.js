@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import SEOHead from '../components/common/SEOHead';
 import { useCMS } from '../contexts/CMSContext';
-import { generateStructuredData, extractKeywords, calculateReadingTime, generateSocialShareUrls } from '../utils/seo';
+import { generateStructuredData, extractKeywords, generateSocialShareUrls } from '../utils/seo';
 import { usePageTracking, useReadingProgress } from '../hooks/useAnalytics';
 import { initializeAnalytics } from '../utils/analytics';
 
@@ -78,11 +78,7 @@ function BlogPost() {
     { name: blogPost.title, url: `/blog/${blogPost.slug}` }
   ];
 
-  const shareUrls = generateSocialShareUrls(
-    `https://safesats.com/blog/${blogPost.slug}`,
-    blogPost.title,
-    blogPost.excerpt
-  );
+
 
   const getCategoryColor = (color) => {
     switch (color) {

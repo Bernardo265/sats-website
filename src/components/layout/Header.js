@@ -31,12 +31,28 @@ function Header() {
         </Link>
 
         {/* Navigation Menu */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden md:flex items-center space-x-6">
           <Link to="/" className={navLinkClass('/')}>Home</Link>
           <Link to="/about" className={navLinkClass('/about')}>About</Link>
           <Link to="/blog" className={navLinkClass('/blog')}>Blog</Link>
           <Link to="/help" className={navLinkClass('/help')}>Help</Link>
           <Link to="/contact" className={navLinkClass('/contact')}>Contact</Link>
+
+          {/* Bitcoin Price Widget - Small */}
+          
+
+          <div className="relative">
+            <Link
+              to="/buy"
+              className="bg-green-400 text-black px-6 py-2 rounded-lg font-semibold hover:bg-green-300 transition-colors"
+              onClick={(e) => e.preventDefault()}
+            >
+              Buy Bitcoin
+            </Link>
+            <span className="absolute block -top-2.5 -right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-0.5 rounded-full transform rotate-6 shadow-md">
+              Coming Soon
+            </span>
+          </div>
         </div>
 
         {/* Mobile Menu Button */}
@@ -50,13 +66,8 @@ function Header() {
           </svg>
         </button>
 
-        {/* Get Started Button */}
-        <Link 
-          to="/contact" 
-          className="hidden md:block bg-white text-black px-6 py-2 rounded-lg transition-all duration-300 hover:shadow-lg transform hover:scale-105 hover:bg-gray-200"
-        >
-          Get Started
-        </Link>
+        {/* Get Started Button - Hidden on desktop since Buy Bitcoin is in nav */}
+        <div className="hidden"></div>
       </nav>
 
       {/* Mobile Menu */}
@@ -91,20 +102,27 @@ function Header() {
             >
               Help
             </Link>
-            <Link 
-              to="/contact" 
+            <Link
+              to="/contact"
               className={navLinkClass('/contact')}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Contact
             </Link>
-            <Link 
-              to="/contact" 
-              className="bg-white text-black px-6 py-2 rounded-lg transition-all duration-300 w-full hover:bg-gray-200 text-center"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Get Started
-            </Link>
+            <div className="flex justify-center">
+              <div className="relative">
+                <Link
+                  to="/buy"
+                  className="bg-green-400 text-black px-6 py-2 rounded-lg transition-all duration-300 hover:bg-green-300 text-center font-semibold"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  Buy Bitcoin
+                </Link>
+                <span className="absolute block -top-2.5 -right-3 bg-yellow-400 text-black text-xs font-bold px-2 py-0.5 rounded-full transform rotate-6 shadow-md">
+                  Coming Soon
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       )}
