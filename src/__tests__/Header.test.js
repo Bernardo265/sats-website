@@ -34,9 +34,17 @@ describe('Header Component', () => {
     expect(screen.getByText('Contact')).toBeInTheDocument();
   });
 
-  test('renders Get Started button', () => {
+  test('renders "Buy Bitcoin" button with "Coming Soon" tag', () => {
     render(<HeaderWithRouter />);
-    expect(screen.getByText('Get Started')).toBeInTheDocument();
+    expect(screen.getAllByText('Buy Bitcoin')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('Coming Soon')[0]).toBeInTheDocument();
+  });
+
+  test('"Buy Bitcoin" button is disabled', () => {
+    render(<HeaderWithRouter />);
+    const buyBitcoinButton = screen.getAllByText('Buy Bitcoin')[0].closest('a');
+    fireEvent.click(buyBitcoinButton);
+    expect(window.location.pathname).toBe('/');
   });
 
   test('mobile menu toggle works', () => {
