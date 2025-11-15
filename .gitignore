@@ -24,3 +24,5 @@ yarn-error.log*
 .env.development
 .env.example
 MALAWI_MIGRATION.md
+docs/admin-price-management-guide.md
+docs/admin-price-management-schema.sql
