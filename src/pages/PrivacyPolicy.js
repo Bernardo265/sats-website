@@ -142,7 +142,7 @@ function PrivacyPolicy() {
             <div className="bg-gray-900/50 rounded-lg p-4 space-y-2">
               <p className="text-gray-300">Email: privacy@safesats.com</p>
               <p className="text-gray-300">Phone: +1 (555) 123-4567</p>
-              <p className="text-gray-300">Address: 123 Blockchain Street, Crypto City, CC 12345</p>
+              <p className="text-gray-300">Address: Blockchain Street, Lilongwe City, Malawi</p>
             </div>
           </section>
         </div>

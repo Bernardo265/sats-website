@@ -33,7 +33,7 @@ function About() {
             About <span className="text-green-400">SafeSats</span>
           </h1>
           <p className="text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
-            We're on a mission to make Bitcoin accessible, secure, and simple for everyone. 
+            We're on a mission to make Bitcoin simple, secure,and accessible for everyone. 
             Learn about our journey, values, and the team behind SafeSats.
           </p>
         </div>

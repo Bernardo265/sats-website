@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { user, isAuthenticated } = useAuth();
 
   const isActive = (path) => {
     return location.pathname === path;
@@ -34,6 +36,20 @@ function Header() {
         <div className="hidden md:flex items-center space-x-6">
           <Link to="/" className={navLinkClass('/')}>Home</Link>
           <Link to="/about" className={navLinkClass('/about')}>About</Link>
+          <Link to="/bitcoin-price" className={navLinkClass('/bitcoin-price')}>
+            <span className="flex items-center space-x-1">
+              <span>₿ Price</span>
+              <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+            </span>
+          </Link>
+          {isAuthenticated && user?.emailVerified && (
+            <Link to="/trading" className={navLinkClass('/trading')}>
+              <span className="flex items-center space-x-1">
+                <span>Trading</span>
+                <div className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-pulse"></div>
+              </span>
+            </Link>
+          )}
           <Link to="/blog" className={navLinkClass('/blog')}>Blog</Link>
           <Link to="/help" className={navLinkClass('/help')}>Help</Link>
           <Link to="/contact" className={navLinkClass('/contact')}>Contact</Link>
@@ -81,15 +97,37 @@ function Header() {
             >
               Home
             </Link>
-            <Link 
-              to="/about" 
+            <Link
+              to="/about"
               className={navLinkClass('/about')}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               About
             </Link>
-            <Link 
-              to="/blog" 
+            <Link
+              to="/bitcoin-price"
+              className={navLinkClass('/bitcoin-price')}
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              <span className="flex items-center space-x-2">
+                <span>₿ Bitcoin Price</span>
+                <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></div>
+              </span>
+            </Link>
+            {isAuthenticated && user?.emailVerified && (
+              <Link
+                to="/trading"
+                className={navLinkClass('/trading')}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <span className="flex items-center space-x-2">
+                  <span>Trading Simulator</span>
+                  <div className="w-1.5 h-1.5 bg-orange-500 rounded-full animate-pulse"></div>
+                </span>
+              </Link>
+            )}
+            <Link
+              to="/blog"
               className={navLinkClass('/blog')}
               onClick={() => setIsMobileMenuOpen(false)}
             >

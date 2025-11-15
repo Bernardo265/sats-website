@@ -3,11 +3,20 @@ import { Link } from 'react-router-dom';
 import BitcoinPriceWidget from '../common/BitcoinPriceWidget';
 
 function HeroSection() {
+  // Intersection observer for stats animation
+  const [statsRef, isStatsVisible] = useIntersectionObserver();
+
+  // Animated counters for statistics
+  const usersCount = useAnimatedCounter(50, 2000, isStatsVisible, 'K+');
+  const volumeCount = useAnimatedCounter(100, 2500, isStatsVisible, 'M+');
+  const uptimeCount = useAnimatedCounter(99.9, 2000, isStatsVisible, '%');
+
   return (
     <section className="relative px-6 py-12 bg-gradient-to-b from-gray-900 via-gray-900 to-gray-800 overflow-hidden">
-      {/* Ambient background glow */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-green-400/5 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-400/5 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+      {/* Enhanced ambient background glow with dynamic movement */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-green-400/5 rounded-full blur-3xl ambient-move"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-400/5 rounded-full blur-3xl ambient-move" style={{animationDelay: '4s'}}></div>
+      <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-safesats-orange/2 rounded-full blur-3xl ambient-move" style={{animationDelay: '6s'}}></div>
 
       {/* Gradient overlay for smooth transition to next section */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-gray-800/50 pointer-events-none"></div>
@@ -56,8 +65,8 @@ function HeroSection() {
             </Link>
           </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-6 pt-8">
+          {/* Stats with animated counters */}
+          <div ref={statsRef} className="grid grid-cols-3 gap-6 pt-8">
             <div className="text-center">
               <div className="text-3xl font-bold text-white mb-1">50K+</div>
               <div className="text-gray-400 text-sm">Active Users</div>
@@ -74,7 +83,7 @@ function HeroSection() {
 
           {/* Payment Methods */}
           <div className="pt-8">
-            <p className="text-gray-400 text-sm mb-4">Accepted payment methods:</p>
+            <p className="text-white/60 text-sm mb-4">Accepted payment methods:</p>
             <div className="flex items-center space-x-4">
               {/* Payment method logos */}
               <div className="w-20 h-20 flex items-center justify-center p-1 relative group cursor-pointer hover:scale-105 transition-transform duration-300">
@@ -144,8 +153,8 @@ function HeroSection() {
         {/* Right Side - Mobile App Mockup - Hidden on mobile/tablet */}
         <div className="hidden xl:flex justify-center lg:justify-end phone-mockup-container">
           <div className="relative">
-            {/* Phone Frame */}
-            <div className="w-80 h-[650px] bg-gradient-to-b from-gray-800 to-black rounded-[3.5rem] p-3 phone-shadow">
+            {/* Phone Frame with tilt animation */}
+            <div className="w-80 h-[650px] bg-gradient-to-b from-gray-800 to-black rounded-[3.5rem] p-3 phone-shadow phone-tilt">
               {/* Phone Screen */}
               <div className="w-full h-full bg-gradient-to-b from-gray-900 to-black rounded-[3rem] p-8 flex flex-col items-center justify-between relative overflow-hidden">
                 {/* Background gradient overlay for depth */}
@@ -190,6 +199,16 @@ function HeroSection() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-indicator">
+        <div className="flex flex-col items-center space-y-2">
+          <span className="text-white/60 text-sm">Scroll to explore</span>
+          <svg className="w-6 h-6 text-safesats-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
         </div>
       </div>
     </section>
