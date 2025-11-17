@@ -48,7 +48,7 @@ function HeroSection() {
             <div className="relative flex ">
               <Link
                 to="/buy"
-                className="bg-green-400 text-black px-8 py-4 rounded-lg font-semibold btn-enhanced-hover glow-green text-center overflow-hidden group"
+                className="w-full sm:w-auto bg-green-400 text-black px-8 py-4 rounded-lg font-semibold btn-enhanced-hover glow-green text-center overflow-hidden group"
                 onClick={(e) => e.preventDefault()}
               >
                 <span className="relative z-10">Buy Bitcoin Now</span>
@@ -60,7 +60,7 @@ function HeroSection() {
             </div>
             <Link
               to="/about"
-              className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold btn-enhanced-hover hover:bg-white hover:text-black text-center relative overflow-hidden group"
+              className="w-full sm:w-auto border-2 border-white text-white px-8 py-4 rounded-lg font-semibold btn-enhanced-hover hover:bg-white hover:text-black text-center relative overflow-hidden group"
             >
               <span className="relative z-10">Learn More</span>
               <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -205,10 +205,10 @@ function HeroSection() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 scroll-indicator">
-        <div className="flex flex-col items-center space-y-2">
-          <span className="text-white/60 text-sm">Scroll to explore</span>
-          <svg className="w-6 h-6 text-safesats-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+        <div className="flex flex-col items-center space-y-0 sm:space-y-2">
+          <span className="text-white/60 text-sm hidden sm:inline">Scroll to explore</span>
+          <svg className="w-6 h-6 text-safesats-orange scroll-indicator" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </div>
