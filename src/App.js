@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider } from '@dr.pogodin/react-helmet';
 import './App.css';
 import './styles/transitions.css';
 import AppRouter from './AppRouter';
 import ErrorBoundary from './components/common/ErrorBoundary';
+import { AuthProvider } from './contexts/AuthContext';
+import serviceManager from './services';
 
 function App() {
   useEffect(() => {
@@ -57,7 +59,9 @@ function App() {
   return (
     <HelmetProvider>
       <ErrorBoundary>
-        <AppRouter />
+        <AuthProvider>
+          <AppRouter />
+        </AuthProvider>
       </ErrorBoundary>
     </HelmetProvider>
   );

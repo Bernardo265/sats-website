@@ -15,8 +15,8 @@
     "quill": "^2.0.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-helmet-async": "^2.0.5",
-    "react-quill": "^2.0.0-beta.4",
+    "@dr.pogodin/react-helmet": "^3.0.4",
+    "react-quill-new": "^3.6.0",
     "react-router-dom": "^7.7.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"

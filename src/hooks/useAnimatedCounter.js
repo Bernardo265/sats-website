@@ -8,7 +8,7 @@ import { useState, useEffect, useRef } from 'react';
  * @param {string} suffix - Optional suffix to add to the number (e.g., '+', '%', 'M+')
  * @returns {string} The current animated value as a string
  */
-export const useAnimatedCounter = (end, duration = 2000, isVisible = false, suffix = '') => {
+const useAnimatedCounter = (end, duration = 2000, isVisible = false, suffix = '') => {
   const [count, setCount] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
   const frameRef = useRef();
@@ -69,41 +69,4 @@ export const useAnimatedCounter = (end, duration = 2000, isVisible = false, suff
   return formatNumber(count);
 };
 
-/**
- * Custom hook for intersection observer to trigger animations
- * @param {Object} options - Intersection observer options
- * @returns {Array} [ref, isVisible] - Ref to attach to element and visibility state
- */
-export const useIntersectionObserver = (options = {}) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [hasIntersected, setHasIntersected] = useState(false);
-  const ref = useRef();
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasIntersected) {
-          setIsVisible(true);
-          setHasIntersected(true);
-        }
-      },
-      {
-        threshold: 0.3,
-        rootMargin: '0px 0px -100px 0px',
-        ...options,
-      }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
-    };
-  }, [hasIntersected, options]);
-
-  return [ref, isVisible];
-};
+export default useAnimatedCounter;

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import BitcoinPriceWidget from '../common/BitcoinPriceWidget';
+import useIntersectionObserver from '../../hooks/useIntersectionObserver';
+import useAnimatedCounter from '../../hooks/useAnimatedCounter';
 
 function HeroSection() {
   // Intersection observer for stats animation
