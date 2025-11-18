@@ -28,21 +28,20 @@ function HeroSection() {
         <div className="space-y-8 hero-content">
           <div className="space-y-6">
             <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
-              The SafeSats Way to<br />
-              <span className="text-white">Buy Bitcoin</span>
+              The SafeSats Way to Buy And Sell<br />
+              <span className="text-white"> Bitcoin</span>
             </h1>
 
             <p className="text-xl text-gray-300 leading-relaxed max-w-lg">
               Safesats provides a secure, fast and user friendly platform
-              for buying Bitcoin with local payment methods.
+              for buying & Selling Bitcoin with local payment methods.
             </p>
           </div>
 
           {/* Bitcoin Price Widget */}
-          <div className="max-w-sm">
-            <BitcoinPriceWidget size="default" />
-          </div>
-
+                      <div className="w-full max-w-[350px] sm:w-auto">
+                          <BitcoinPriceWidget size="small" />
+                      </div>
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex ">

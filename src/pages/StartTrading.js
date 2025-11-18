@@ -180,7 +180,7 @@ function StartTrading() {
               </div>
 
               {/* Current Bitcoin Price */}
-              <BitcoinPriceWidget 
+              <BitcoinPriceWidget size="small" 
                 showDetailed={true}
                 className="lg:sticky lg:top-8"
               />

@@ -75,7 +75,7 @@ function PortfolioPage() {
               {/* Sidebar */}
               <div className="xl:col-span-1 space-y-6">
                 {/* Live Bitcoin Price */}
-                <BitcoinPriceWidget 
+                <BitcoinPriceWidget size="small" 
                   showDetailed={true}
                   refreshInterval={30000}
                 />

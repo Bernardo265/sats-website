@@ -50,14 +50,14 @@ function BitcoinPrice() {
           {/* Main Price Widgets */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             {/* Primary Price Widget */}
-            <BitcoinPriceWidget 
+            <BitcoinPriceWidget size="small" 
               showDetailed={true}
               className="lg:col-span-1"
             />
             
             {/* Secondary Price Widget with Different Refresh Rate */}
             <div className="space-y-6">
-              <BitcoinPriceWidget 
+              <BitcoinPriceWidget size="small" 
                 variant="compact"
                 refreshInterval={30000} // 30 seconds for faster updates
                 className="bg-orange-500/10 border-orange-500/30"

@@ -11,7 +11,7 @@ function BitcoinPriceWidget({ className = '', size = 'default' }) {
     const updatePrice = (priceData) => {
       if (priceData) {
         setBitcoinPrice({
-          mwk: priceData.price_mwk,
+          usd: priceData.price_usd,
           change24h: priceData.price_change_24h,
           isFallback: priceData.source === 'default' || priceData.is_override // Check for fallback or override
         });
@@ -37,13 +37,13 @@ function BitcoinPriceWidget({ className = '', size = 'default' }) {
     return () => unsubscribe();
   }, []);
 
-  // Format currency for MWK
-  const formatMWK = (amount) => {
-    return new Intl.NumberFormat('en-MW', {
+  // Format currency for USD
+  const formatUSD = (amount) => {
+    return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'MWK',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
     }).format(amount);
   };
 
@@ -102,10 +102,10 @@ function BitcoinPriceWidget({ className = '', size = 'default' }) {
   return (
     <div className={`bg-black/20 backdrop-blur-sm border border-green-400/30 rounded-xl ${currentSize.container} text-center hover:border-green-400/50 transition-all duration-300 ${className}`}>
       <div className="space-y-2">
-        <p className={`text-gray-300 ${currentSize.title}`}>Live Bitcoin Price</p>
+        {/* <p className={`text-gray-300 ${currentSize.title}`}>Live Bitcoin Price (USD)</p> */}
         <div className="space-y-1">
           <p className={`text-white ${currentSize.price}`}>
-            {formatMWK(bitcoinPrice.mwk)}
+            {formatUSD(bitcoinPrice.usd)}
           </p>
           <div className="flex items-center justify-center space-x-2">
             <span className={`${changeColor} ${currentSize.change}`}>
@@ -114,13 +114,13 @@ function BitcoinPriceWidget({ className = '', size = 'default' }) {
             <span className="text-gray-400 text-xs">24h</span>
           </div>
         </div>
-        {bitcoinPrice.isFallback && (
+        {/* {bitcoinPrice.isFallback && (
           <p className={`text-yellow-400 ${currentSize.fallback}`}>Estimated price</p>
-        )}
-        <div className="flex items-center justify-center space-x-1 mt-2">
+        )} */}
+        {/* <div className="flex items-center justify-center space-x-1 mt-2">
           <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
           <span className="text-gray-400 text-xs">Live</span>
-        </div>
+        </div> */}
       </div>
     </div>
   );

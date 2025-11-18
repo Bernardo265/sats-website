@@ -227,7 +227,7 @@ function Dashboard() {
             {/* Right Column - Bitcoin Price & Updates */}
             <div className="space-y-8">
               {/* Live Bitcoin Price */}
-              <BitcoinPriceWidget 
+              <BitcoinPriceWidget size="small" 
                 showDetailed={true}
                 refreshInterval={30000}
               />
