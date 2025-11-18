@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import bitcoinService from '../../services/bitcoinService';
+import priceService from '../../services/priceService'; // Import the price service
 
 function BitcoinPriceWidget({ className = '', size = 'default' }) {
   const [bitcoinPrice, setBitcoinPrice] = useState(null);
@@ -8,29 +8,33 @@ function BitcoinPriceWidget({ className = '', size = 'default' }) {
 
   // Fetch Bitcoin price on component mount and set up refresh interval
   useEffect(() => {
-    const fetchBitcoinPrice = async () => {
-      try {
-        setPriceLoading(true);
+    const updatePrice = (priceData) => {
+      if (priceData) {
+        setBitcoinPrice({
+          mwk: priceData.price_mwk,
+          change24h: priceData.price_change_24h,
+          isFallback: priceData.source === 'default' || priceData.is_override // Check for fallback or override
+        });
         setPriceError(null);
-        // const priceData = await bitcoinService.getBitcoinPrice();
-        const priceData = await new Promise(resolve => setTimeout(() => resolve({ mwk: 50000000, change24h: 2.5, isFallback: false }), 1000));
-        setBitcoinPrice(priceData);
-      } catch (error) {
-        console.error('Failed to fetch Bitcoin price:', error);
-        setPriceError('Failed to load price');
-      } finally {
-        setPriceLoading(false);
+      } else {
+        setPriceError('No price data available');
       }
+      setPriceLoading(false);
     };
 
-    // Initial fetch
-    fetchBitcoinPrice();
+    // Get initial price
+    const initialPrice = priceService.getCurrentPrice();
+    if (initialPrice) {
+      updatePrice(initialPrice);
+    } else {
+      setPriceLoading(true); // Keep loading if no initial price
+    }
 
-    // Set up refresh interval (every 5 minutes to reduce API calls)
-    const interval = setInterval(fetchBitcoinPrice, 300000);
+    // Subscribe to price updates
+    const unsubscribe = priceService.subscribe(updatePrice);
 
-    // Cleanup interval on unmount
-    return () => clearInterval(interval);
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
   }, []);
 
   // Format currency for MWK
