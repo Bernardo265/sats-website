@@ -32,7 +32,7 @@ The platform serves as a comprehensive solution for Bitcoin purchases, featuring
 - **Responsive Design**: Optimized for both desktop and mobile Bitcoin purchasing
 
 ### 🔄 Payment Processing
-- **Secure API Integration**: Bank-level security with encrypted payment processing via Airtel Money API
+- **Secure API Integration**: Bank-level security with encrypted payment processing via Paychangu API
 - **Real-time Status Updates**: Live transaction status monitoring with automatic polling
 - **Error Handling**: Comprehensive error handling with retry mechanisms and user feedback
 - **Transaction History**: Complete audit trail with export functionality (JSON/CSV)
@@ -243,7 +243,7 @@ sats-website/
 
 #### Payment Components
 - **PaymentMethodSelector**: Interactive payment method selection with real-time validation
-- **AirtelMoneyForm**: Secure Airtel Money payment form with phone number validation
+- **PaychanguForm**: Secure Paychangu payment form with phone number validation
 - **TransactionStatus**: Real-time transaction status tracking with progress indicators
 - **TransactionHistory**: Complete transaction history with filtering and export capabilities
 
