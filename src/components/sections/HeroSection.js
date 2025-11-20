@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import BitcoinPriceWidget from '../common/BitcoinPriceWidget';
 import useIntersectionObserver from '../../hooks/useIntersectionObserver';
 import useAnimatedCounter from '../../hooks/useAnimatedCounter';
+import CountUp from 'react-countup';
+
 
 function HeroSection() {
   // Intersection observer for stats animation
@@ -39,7 +41,7 @@ function HeroSection() {
           </div>
 
           {/* Bitcoin Price Widget */}
-                      <div className="w-full max-w-[350px] sm:w-auto">
+                      <div className="lg:w-[350px] sm:w-auto">
                           <BitcoinPriceWidget size="small" />
                       </div>
           {/* CTA Buttons */}
@@ -67,17 +69,17 @@ function HeroSection() {
           </div>
 
           {/* Stats with animated counters */}
-          <div ref={statsRef} className="grid grid-cols-3 gap-6 pt-8">
+          <div ref={statsRef} className="grid grid-cols-3 gap-4 pt-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-1">50K+</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1"><CountUp end={50000} duration={2} separator="," suffix="+" /></div>
               <div className="text-gray-400 text-sm">Active Users</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-1">MK100M+</div>
+              <div className="text-xl sm:text-2x1 md:text-3xl font-bold text-white mb-1"><CountUp end={1000000} duration={2} separator="," suffix="MWK+"/></div>
               <div className="text-gray-400 text-sm">Volume Traded</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-white mb-1">99.9%</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-1"> <CountUp end={99.9} duration={2} suffix="%" decimals={1} /> </div>
               <div className="text-gray-400 text-sm">Uptime</div>
             </div>
           </div>

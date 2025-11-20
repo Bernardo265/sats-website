@@ -26,3 +26,5 @@ yarn-error.log*
 MALAWI_MIGRATION.md
 docs/admin-price-management-guide.md
 docs/admin-price-management-schema.sql
+.gitignore
+README.md

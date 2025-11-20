@@ -1,50 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import priceService from '../../services/priceService'; // Import the price service
 
 function BitcoinPriceWidget({ className = '', size = 'default' }) {
   const [bitcoinPrice, setBitcoinPrice] = useState(null);
   const [priceLoading, setPriceLoading] = useState(true);
   const [priceError, setPriceError] = useState(null);
 
-  // Fetch Bitcoin price on component mount and set up refresh interval
   useEffect(() => {
-    const updatePrice = (priceData) => {
-      if (priceData) {
-        setBitcoinPrice({
-          usd: priceData.price_usd,
-          change24h: priceData.price_change_24h,
-          isFallback: priceData.source === 'default' || priceData.is_override // Check for fallback or override
-        });
-        setPriceError(null);
-      } else {
-        setPriceError('No price data available');
+    const fetchPrice = async () => {
+      try {
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true');
+        if (!response.ok) {
+          throw new Error('Failed to fetch price from CoinGecko');
+        }
+        const data = await response.json();
+        if (data.bitcoin) {
+          setBitcoinPrice({
+            usd: data.bitcoin.usd,
+            change24h: data.bitcoin.usd_24h_change,
+          });
+          setPriceError(null);
+        } else {
+          throw new Error('Invalid data format from CoinGecko');
+        }
+      } catch (error) {
+        setPriceError(error.message);
+      } finally {
+        setPriceLoading(false);
       }
-      setPriceLoading(false);
     };
 
-    // Get initial price
-    const initialPrice = priceService.getCurrentPrice();
-    if (initialPrice) {
-      updatePrice(initialPrice);
-    } else {
-      setPriceLoading(true); // Keep loading if no initial price
-    }
+    fetchPrice(); // Initial fetch
+    const intervalId = setInterval(fetchPrice, 30000); // Fetch every 30 seconds
 
-    // Subscribe to price updates
-    const unsubscribe = priceService.subscribe(updatePrice);
-
-    // Cleanup subscription on unmount
-    return () => unsubscribe();
+    return () => clearInterval(intervalId); // Cleanup on unmount
   }, []);
 
-  // Format currency for USD
+  // Format currency with explicit $ symbol
   const formatUSD = (amount) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    if (amount === null || amount === undefined) return '$0.00';
+    return `$${amount.toLocaleString('en-US', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
-    }).format(amount);
+    })}`;
   };
 
   // Size variants
@@ -54,21 +51,18 @@ function BitcoinPriceWidget({ className = '', size = 'default' }) {
       title: 'text-xs',
       price: 'text-sm font-semibold',
       change: 'text-xs',
-      fallback: 'text-xs'
     },
     default: {
       container: 'p-4',
       title: 'text-sm font-medium',
       price: 'text-lg font-bold',
       change: 'text-sm font-medium',
-      fallback: 'text-xs'
     },
     large: {
       container: 'p-6',
       title: 'text-base font-medium',
       price: 'text-2xl font-bold',
       change: 'text-base font-medium',
-      fallback: 'text-sm'
     }
   };
 
@@ -90,7 +84,7 @@ function BitcoinPriceWidget({ className = '', size = 'default' }) {
     return (
       <div className={`bg-black/20 backdrop-blur-sm border border-red-400/30 rounded-xl ${currentSize.container} text-center ${className}`}>
         <p className="text-red-400 text-sm">Price unavailable</p>
-        <p className="text-gray-500 text-xs mt-1">Check connection</p>
+        <p className="text-gray-500 text-xs mt-1">{priceError || 'Check connection'}</p>
       </div>
     );
   }
@@ -102,25 +96,22 @@ function BitcoinPriceWidget({ className = '', size = 'default' }) {
   return (
     <div className={`bg-black/20 backdrop-blur-sm border border-green-400/30 rounded-xl ${currentSize.container} text-center hover:border-green-400/50 transition-all duration-300 ${className}`}>
       <div className="space-y-2">
-        {/* <p className={`text-gray-300 ${currentSize.title}`}>Live Bitcoin Price (USD)</p> */}
+        <p className={`text-gray-300 ${currentSize.title}`}>Live Bitcoin Price</p>
         <div className="space-y-1">
           <p className={`text-white ${currentSize.price}`}>
             {formatUSD(bitcoinPrice.usd)}
           </p>
           <div className="flex items-center justify-center space-x-2">
             <span className={`${changeColor} ${currentSize.change}`}>
-              {changeIcon} {Math.abs(bitcoinPrice.change24h).toFixed(2)}%
+              {changeIcon} {bitcoinPrice.change24h ? Math.abs(bitcoinPrice.change24h).toFixed(2) : '0.00'}%
             </span>
             <span className="text-gray-400 text-xs">24h</span>
           </div>
         </div>
-        {/* {bitcoinPrice.isFallback && (
-          <p className={`text-yellow-400 ${currentSize.fallback}`}>Estimated price</p>
-        )} */}
-        {/* <div className="flex items-center justify-center space-x-1 mt-2">
+        <div className="flex items-center justify-center space-x-1 mt-2">
           <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
           <span className="text-gray-400 text-xs">Live</span>
-        </div> */}
+        </div>
       </div>
     </div>
   );

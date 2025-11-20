@@ -34,7 +34,7 @@ class PriceService {
 
       // Try to fetch initial price with timeout and fallback
       try {
-        await this.fetchAndStorePriceDataWithFallback();
+        await this.fetchAndStorePriceData();
         console.log('✅ Initial price fetch successful');
       } catch (error) {
         console.warn('⚠️ Initial price fetch failed, will retry periodically:', error.message);
@@ -45,7 +45,7 @@ class PriceService {
       // Set up periodic updates with error handling
       this.intervalId = setInterval(async () => {
         try {
-          await this.fetchAndStorePriceDataWithFallback();
+          await this.fetchAndStorePriceData();
         } catch (error) {
           console.error('Price update failed:', error.message);
           // Continue running even if individual updates fail
