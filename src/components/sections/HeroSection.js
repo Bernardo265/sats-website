@@ -75,7 +75,7 @@ function HeroSection() {
               <div className="text-gray-400 text-sm">Active Users</div>
             </div>
             <div className="text-center">
-              <div className="text-xl sm:text-2x1 md:text-3xl font-bold text-white mb-1"><CountUp end={1000000} duration={2} separator="," suffix="MWK+"/></div>
+              <div className="text-xl sm:text-2x1 md:text-3xl font-bold text-white mb-1"><CountUp end={1} duration={2} separator="," suffix="M+"/></div>
               <div className="text-gray-400 text-sm">Volume Traded</div>
             </div>
             <div className="text-center">
