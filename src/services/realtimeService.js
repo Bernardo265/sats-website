@@ -19,6 +19,13 @@ class RealtimeService {
    * @param {string} userId - User ID for user-specific subscriptions
    */
   async initialize(userId) {
+    // Check if trading services are disabled
+    if (window.DISABLE_TRADING_SERVICES) {
+      console.log('🚫 Real-time service disabled - admin-only platform');
+      this.isConnected = false;
+      return;
+    }
+
     try {
       console.log('Initializing real-time service...');
       
@@ -43,6 +50,12 @@ class RealtimeService {
    * @param {string} userId - User ID
    */
   async subscribeToUserData(userId) {
+    // Check if trading services are disabled
+    if (window.DISABLE_TRADING_SERVICES) {
+      console.log('🚫 User data subscription disabled - admin-only platform');
+      return;
+    }
+
     const subscriptionKey = `user_data_${userId}`;
     
     // Unsubscribe existing subscription if any
@@ -95,6 +108,12 @@ class RealtimeService {
    * Subscribe to price data changes
    */
   async subscribeToPriceData() {
+    // Check if trading services are disabled
+    if (window.DISABLE_TRADING_SERVICES) {
+      console.log('🚫 Price data subscription disabled - admin-only platform');
+      return;
+    }
+
     const subscriptionKey = 'price_data';
     
     // Unsubscribe existing subscription if any

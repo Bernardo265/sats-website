@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CMSProvider } from './contexts/CMSContext';
-import { PaymentProvider } from './contexts/PaymentContext';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -11,22 +10,27 @@ import TermsOfService from './pages/TermsOfService';
 import Help from './pages/Help';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
-// import BuyBitcoin from './pages/BuyBitcoin';
+import Login from './pages/Login';
+import BitcoinPrice from './pages/BitcoinPrice';
+import Compliance from './pages/Compliance';
+import Unauthorized from './pages/Unauthorized';
+
+// New Admin Components
 import AdminLayout from './components/admin/AdminLayout';
-import AdminDashboard from './pages/admin/AdminDashboard';
-import AdminLogin from './pages/admin/AdminLogin';
-import AdminBlogPosts from './pages/admin/AdminBlogPosts';
-import AdminBlogPostEdit from './pages/admin/AdminBlogPostEdit';
-import AdminCategories from './pages/admin/AdminCategories';
-import AdminMediaLibrary from './pages/admin/AdminMediaLibrary';
-import AdminAnalytics from './pages/admin/AdminAnalytics';
+import AdminRoute from './components/admin/AdminRoute';
+import AdminDashboard from './components/admin/AdminDashboard';
+import BlogManagement from './components/admin/BlogManagement';
+import BlogEditor from './components/admin/BlogEditor';
+import SubscriberManagement from './components/admin/SubscriberManagement';
+import UserManagement from './components/admin/UserManagement';
+import UnsubscribePage from './components/subscription/UnsubscribePage';
+import AdminTest from './components/admin/AdminTest';
 
 function AppRouter() {
   return (
     <CMSProvider>
-      <PaymentProvider>
-        <Router>
-          <Routes>
+      <Router>
+        <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Layout><Home /></Layout>} />
             <Route path="/about" element={<Layout><About /></Layout>} />
@@ -36,20 +40,36 @@ function AppRouter() {
             <Route path="/help" element={<Layout><Help /></Layout>} />
             <Route path="/blog" element={<Layout><Blog /></Layout>} />
             <Route path="/blog/:slug" element={<Layout><BlogPost /></Layout>} />
-            {/* <Route path="/buy" element={<BuyBitcoin />} /> */}
+            <Route path="/bitcoin-price" element={<Layout><BitcoinPrice /></Layout>} />
+            <Route path="/compliance" element={<Layout><Compliance /></Layout>} />
+            <Route path="/unauthorized" element={<Unauthorized />} />
+            
+            {/* Admin Login */}
+            <Route path="/login" element={<Login />} />
 
-          {/* Admin Routes */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route path="/admin" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
-          <Route path="/admin/blog-posts" element={<AdminLayout><AdminBlogPosts /></AdminLayout>} />
-          <Route path="/admin/blog-posts/new" element={<AdminLayout><AdminBlogPostEdit /></AdminLayout>} />
-          <Route path="/admin/blog-posts/edit/:id" element={<AdminLayout><AdminBlogPostEdit /></AdminLayout>} />
-          <Route path="/admin/categories" element={<AdminLayout><AdminCategories /></AdminLayout>} />
-          <Route path="/admin/media" element={<AdminLayout><AdminMediaLibrary /></AdminLayout>} />
-          <Route path="/admin/analytics" element={<AdminLayout><AdminAnalytics /></AdminLayout>} />
-        </Routes>
-      </Router>
-      </PaymentProvider>
+            {/* Subscription Routes */}
+            <Route path="/unsubscribe" element={<UnsubscribePage />} />
+
+            {/* Admin Test Route (Development Only) */}
+            {process.env.NODE_ENV === 'development' && (
+              <Route path="/admin-test" element={<Layout><AdminTest /></Layout>} />
+            )}
+
+            {/* Admin Routes */}
+            <Route path="/admin" element={
+              <AdminRoute>
+                <AdminLayout />
+              </AdminRoute>
+            }>
+              <Route index element={<AdminDashboard />} />
+              <Route path="blog" element={<BlogManagement />} />
+              <Route path="blog/new" element={<BlogEditor />} />
+              <Route path="blog/edit/:id" element={<BlogEditor />} />
+              <Route path="subscribers" element={<SubscriberManagement />} />
+              <Route path="users" element={<UserManagement />} />
+            </Route>
+          </Routes>
+        </Router>
     </CMSProvider>
   );
 }

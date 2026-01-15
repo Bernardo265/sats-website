@@ -19,11 +19,11 @@ export const PAYMENT_METHOD_CONFIG = {
     displayName: 'Airtel Money',
     logo: '/images/airtel-money.png',
     description: 'Pay securely with your Airtel Money wallet',
-    fee: config.payment.fees.airtelMoney, // 2% fee
-    minAmount: config.payment.minAmount, // Minimum amount in local currency
-    maxAmount: config.payment.maxAmount, // Maximum amount in local currency
+    fee: config.payment?.fees?.airtelMoney || 0.02, // 2% fee
+    minAmount: config.payment?.minAmount || 5000, // Minimum amount in local currency
+    maxAmount: config.payment?.maxAmount || 2000000, // Maximum amount in local currency
     currency: 'USD', // Malawian Kwacha
-    isActive: config.features.airtelMoney,
+    isActive: config.features?.airtelMoney || false,
     processingTime: '5-10 minutes',
     requiredFields: ['phoneNumber'],
     supportedCountries: ['MW'], // Malawi
@@ -80,15 +80,15 @@ export const TRANSACTION_TYPES = {
 
 // API Endpoints
 export const API_ENDPOINTS = {
-  AIRTEL_MONEY: {
-    BASE_URL: config.airtelMoney.baseUrl,
+  Paychangu: {
+    BASE_URL: config.paychangu?.baseUrl || 'https://api.paychangu.com',
     AUTH: '/auth/oauth2/token',
     PAYMENT: '/merchant/v1/payments/',
     STATUS: '/standard/v1/payments/',
     REFUND: '/standard/v1/payments/refund'
   },
   SAFESATS: {
-    BASE_URL: config.api.baseUrl,
+    BASE_URL: config.api?.baseUrl || 'http://localhost:3001/api',
     TRANSACTIONS: '/transactions',
     BITCOIN_PRICE: '/bitcoin/price',
     PAYMENT_METHODS: '/payment-methods'
@@ -126,9 +126,9 @@ export const VALIDATION_RULES = {
     message: 'Please enter a valid Airtel Money number (e.g., +265888123456 or 0888123456)'
   },
   AMOUNT: {
-    min: 5000,
-    max: 2000000,
-    message: 'Amount must be between MWK 5,000 and MWK 2,000,000'
+    min: config.payment?.minAmount || 5000,
+    max: config.payment?.maxAmount || 2000000,
+    message: `Amount must be between ${config.payment?.defaultCurrency || 'MWK'} ${(config.payment?.minAmount || 5000).toLocaleString()} and ${config.payment?.defaultCurrency || 'MWK'} ${(config.payment?.maxAmount || 2000000).toLocaleString()}`
   }
 };
 

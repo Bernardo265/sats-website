@@ -16,6 +16,16 @@ class Config {
     };
   }
 
+  // Paychangu Configuration
+  get paychangu() {
+    return {
+      baseUrl: process.env.REACT_APP_PAYCHANGU_BASE_URL || 'https://api.paychangu.com',
+      publicKey: process.env.REACT_APP_PAYCHANGU_PUBLIC_KEY || 'demo_public_key',
+      secretKey: process.env.REACT_APP_PAYCHANGU_SECRET_KEY || 'demo_secret_key',
+      enabled: process.env.REACT_APP_ENABLE_PAYCHANGU === 'true'
+    };
+  }
+
   // SafeSats API Configuration
   get api() {
     return {
@@ -56,6 +66,7 @@ class Config {
       airtelMoney: process.env.REACT_APP_ENABLE_AIRTEL_MONEY === 'true',
       mukuru: process.env.REACT_APP_ENABLE_MUKURU === 'true',
       mastercard: process.env.REACT_APP_ENABLE_MASTERCARD === 'true',
+      paychangu: process.env.REACT_APP_ENABLE_PAYCHANGU === 'true',
       analytics: !this.isDevelopment,
       errorReporting: !this.isDevelopment
     };
@@ -90,8 +101,8 @@ class Config {
       version: process.env.REACT_APP_APP_VERSION || '1.0.0',
       environment: this.environment,
       buildDate: process.env.REACT_APP_BUILD_DATE || new Date().toISOString(),
-      supportEmail: 'support@safesats.com',
-      websiteUrl: 'https://safesats.com'
+      supportEmail: 'support@safesats.mw',
+      websiteUrl: 'https://safesats.mw'
     };
   }
 
@@ -150,6 +161,7 @@ class Config {
     return {
       environment: this.environment,
       airtelMoney: this.airtelMoney,
+      paychangu: this.paychangu,
       api: this.api,
       bitcoin: this.bitcoin,
       payment: this.payment,
@@ -169,6 +181,10 @@ class Config {
         airtelMoney: {
           ...this.airtelMoney,
           clientSecret: '***HIDDEN***'
+        },
+        paychangu: {
+          ...this.paychangu,
+          secretKey: '***HIDDEN***'
         },
         api: {
           ...this.api,

@@ -17,6 +17,12 @@ class PortfolioService {
    */
   async getPortfolioData(userId) {
     try {
+      // Check if trading services are disabled
+      if (window.DISABLE_TRADING_SERVICES) {
+        console.log('🚫 Portfolio service disabled - admin-only platform');
+        return this.getDefaultPortfolioData();
+      }
+
       const dashboard = await supabaseHelpers.getUserDashboard();
       const currentPrice = priceService.getCurrentPrice();
 
@@ -54,8 +60,29 @@ class PortfolioService {
       };
     } catch (error) {
       console.error('Error getting portfolio data:', error);
-      throw error;
+      return this.getDefaultPortfolioData();
     }
+  }
+
+  /**
+   * Get default portfolio data for admin-only platform
+   * @returns {Object} Default portfolio data
+   */
+  getDefaultPortfolioData() {
+    return {
+      mwk_balance: 0,
+      btc_balance: 0,
+      total_value: 0,
+      profit_loss: 0,
+      profit_loss_percentage: 0,
+      allocation: {
+        mwk_percentage: 0,
+        btc_percentage: 0
+      },
+      performance: this.getDefaultMetrics(),
+      disabled: true,
+      message: 'Portfolio disabled - admin-only platform'
+    };
   }
 
   /**
@@ -65,6 +92,12 @@ class PortfolioService {
    */
   async getPerformanceMetrics(userId) {
     try {
+      // Check if trading services are disabled
+      if (window.DISABLE_TRADING_SERVICES) {
+        console.log('🚫 Performance metrics disabled - admin-only platform');
+        return this.getDefaultMetrics();
+      }
+
       // Check cache first
       const cacheKey = `performance_${userId}`;
       const cached = this.performanceCache.get(cacheKey);

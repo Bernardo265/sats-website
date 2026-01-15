@@ -20,6 +20,12 @@ class PriceService {
    * @param {number} interval - Update interval in milliseconds
    */
   async start(interval = 30000) {
+    // Check if trading services are disabled
+    if (window.DISABLE_TRADING_SERVICES) {
+      console.log('🚫 Price service disabled - admin-only platform');
+      return { success: false, message: 'Trading services disabled' };
+    }
+
     if (this.isRunning) {
       console.warn('Price service is already running');
       return { success: true, message: 'Already running' };
@@ -364,6 +370,12 @@ class PriceService {
    * Load fallback price during initialization
    */
   async loadFallbackPrice() {
+    // Check if trading services are disabled
+    if (window.DISABLE_TRADING_SERVICES) {
+      console.log('🚫 Fallback price loading disabled - admin-only platform');
+      return;
+    }
+
     try {
       const fallbackData = await this.getFallbackPrice();
       if (fallbackData) {

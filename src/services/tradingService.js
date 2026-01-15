@@ -4,12 +4,20 @@ import priceService from './priceService';
 /**
  * Trading Service for handling complex trading operations
  */
-class TradingService {
-  constructor() {
-    this.tradingFee = 0.001; // 0.1% trading fee
-    this.minTradeAmount = 1000; // Minimum trade amount in MWK
-    this.maxTradeAmount = 1000000; // Maximum trade amount in MWK
-  }
+// class TradingService {
+//   constructor() {
+//     this.tradingFee = 0.001; // 0.1% trading fee
+//     this.minTradeAmount = 1000; // Minimum trade amount in MWK
+//     this.maxTradeAmount = 1000000; // Maximum trade amount in MWK
+//   }
+
+  class TradingService {
+    constructor(){
+      this.tradingFee = 0.01;
+      this.minTradingAmount = 3900;
+      this.maxTradingAmount = 1000000;
+    }
+  
 
   /**
    * Validate trading parameters
@@ -64,6 +72,15 @@ class TradingService {
    * @returns {Object} Trade result
    */
   async executeBuyOrder(params) {
+    // Check if trading services are disabled
+    if (window.DISABLE_TRADING_SERVICES) {
+      console.log('🚫 Trading service disabled - admin-only platform');
+      return {
+        success: false,
+        error: 'Trading services disabled - admin-only platform'
+      };
+    }
+
     try {
       const { userId, amount, orderType = 'market', limitPrice = null } = params;
 
@@ -168,6 +185,15 @@ class TradingService {
    * @returns {Object} Trade result
    */
   async executeSellOrder(params) {
+    // Check if trading services are disabled
+    if (window.DISABLE_TRADING_SERVICES) {
+      console.log('🚫 Trading service disabled - admin-only platform');
+      return {
+        success: false,
+        error: 'Trading services disabled - admin-only platform'
+      };
+    }
+
     try {
       const { userId, btcAmount, orderType = 'market', limitPrice = null } = params;
 
@@ -312,6 +338,25 @@ class TradingService {
    * @returns {Object} Trading statistics
    */
   async getTradingStats(userId) {
+    // Check if trading services are disabled
+    if (window.DISABLE_TRADING_SERVICES) {
+      console.log('🚫 Trading stats disabled - admin-only platform');
+      return {
+        totalTrades: 0,
+        winningTrades: 0,
+        losingTrades: 0,
+        winRate: 0,
+        totalVolume: 0,
+        averageTradeSize: 0,
+        largestGain: 0,
+        largestLoss: 0,
+        profitLoss: 0,
+        profitLossPercentage: 0,
+        disabled: true,
+        message: 'Trading stats disabled - admin-only platform'
+      };
+    }
+
     try {
       const dashboard = await supabaseHelpers.getUserDashboard();
       const transactions = await supabaseHelpers.getTradingHistory(100);

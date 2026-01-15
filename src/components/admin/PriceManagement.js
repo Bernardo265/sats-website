@@ -75,6 +75,20 @@ const PriceManagement = () => {
   };
 
   const loadCurrentData = async () => {
+    // Check if trading services are disabled
+    if (window.DISABLE_TRADING_SERVICES) {
+      console.log('🚫 Price management disabled - admin-only platform');
+      setCurrentPrice({
+        price_usd: 0,
+        price_mwk: 0,
+        source: 'disabled',
+        last_updated: new Date().toISOString(),
+        disabled: true
+      });
+      setActiveOverride(null);
+      return;
+    }
+
     try {
       const [price, override] = await Promise.all([
         priceService.getCurrentPrice(),

@@ -1,279 +1,82 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
 import authService from '../../services/authService';
 
-/**
- * Admin Route Guard Component
- * Protects admin routes and checks permissions
- */
-const AdminRoute = ({ 
-  children, 
-  requiredPermission = null, 
-  requiredRole = 'author',
-  fallbackPath = '/login' 
-}) => {
-  const { user, isAuthenticated, loading } = useAuth();
+const AdminRoute = ({ children }) => {
+  const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [user, setUser] = useState(null);
   const location = useLocation();
-  const [hasAccess, setHasAccess] = useState(false);
-  const [checking, setChecking] = useState(true);
 
   useEffect(() => {
-    const checkAccess = async () => {
-      if (loading) return;
+    checkAdminAccess();
+  }, []);
 
-      if (!isAuthenticated || !user) {
-        setHasAccess(false);
-        setChecking(false);
+  const checkAdminAccess = async () => {
+    try {
+      const currentUser = await authService.getCurrentUser();
+      
+      if (!currentUser) {
+        setLoading(false);
         return;
       }
 
-      try {
-        // Get user with role information
-        const currentUser = await authService.getCurrentUser();
-        if (!currentUser) {
-          setHasAccess(false);
-          setChecking(false);
-          return;
-        }
+      setUser(currentUser);
+      
+      // Check if user has admin role
+      const hasAdminAccess = await authService.isAdmin();
+      setIsAdmin(hasAdminAccess);
+      
+    } catch (error) {
+      console.error('Error checking admin access:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        const userRole = currentUser.profile?.role || 'user';
-
-        // Check role requirement
-        const hasRole = authService.hasRole(userRole, requiredRole);
-        if (!hasRole) {
-          setHasAccess(false);
-          setChecking(false);
-          return;
-        }
-
-        // Check specific permission if required
-        if (requiredPermission) {
-          const hasPermission = authService.hasPermission(userRole, requiredPermission);
-          setHasAccess(hasPermission);
-        } else {
-          setHasAccess(true);
-        }
-
-        setChecking(false);
-      } catch (error) {
-        console.error('Error checking admin access:', error);
-        setHasAccess(false);
-        setChecking(false);
-      }
-    };
-
-    checkAccess();
-  }, [user, isAuthenticated, loading, requiredPermission, requiredRole]);
-
-  // Show loading state
-  if (loading || checking) {
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Checking permissions...</p>
         </div>
       </div>
     );
   }
 
-  // Redirect if not authenticated
-  if (!isAuthenticated) {
-    return <Navigate to={fallbackPath} state={{ from: location }} replace />;
+  if (!user) {
+    // Redirect to login with return URL
+    return <Navigate to={`/login?redirect=${encodeURIComponent(location.pathname)}`} replace />;
   }
 
-  // Redirect if no access
-  if (!hasAccess) {
-    return <Navigate to="/unauthorized" replace />;
-  }
-
-  // Render protected content
-  return children;
-};
-
-/**
- * Permission-based component wrapper
- */
-export const PermissionWrapper = ({ 
-  permission, 
-  role = null, 
-  children, 
-  fallback = null 
-}) => {
-  const { user } = useAuth();
-  const [hasAccess, setHasAccess] = useState(false);
-  const [checking, setChecking] = useState(true);
-
-  useEffect(() => {
-    const checkPermission = async () => {
-      try {
-        if (!user) {
-          setHasAccess(false);
-          setChecking(false);
-          return;
-        }
-
-        const currentUser = await authService.getCurrentUser();
-        if (!currentUser) {
-          setHasAccess(false);
-          setChecking(false);
-          return;
-        }
-
-        const userRole = currentUser.profile?.role || 'user';
-
-        // Check role if specified
-        if (role && !authService.hasRole(userRole, role)) {
-          setHasAccess(false);
-          setChecking(false);
-          return;
-        }
-
-        // Check permission
-        const hasPermission = authService.hasPermission(userRole, permission);
-        setHasAccess(hasPermission);
-        setChecking(false);
-      } catch (error) {
-        console.error('Error checking permission:', error);
-        setHasAccess(false);
-        setChecking(false);
-      }
-    };
-
-    checkPermission();
-  }, [user, permission, role]);
-
-  if (checking) {
-    return <div className="animate-pulse bg-gray-200 h-4 rounded"></div>;
-  }
-
-  if (!hasAccess) {
-    return fallback;
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center max-w-md mx-auto p-6">
+          <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+            <svg className="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+            </svg>
+          </div>
+          <h3 className="mt-4 text-lg font-medium text-gray-900">Access Denied</h3>
+          <p className="mt-2 text-sm text-gray-500">
+            You don't have permission to access the admin panel. Please contact an administrator if you believe this is an error.
+          </p>
+          <div className="mt-6">
+            <a
+              href="/"
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+            >
+              Go to Homepage
+            </a>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return children;
-};
-
-/**
- * Role-based component wrapper
- */
-export const RoleWrapper = ({ 
-  role, 
-  children, 
-  fallback = null 
-}) => {
-  const { user } = useAuth();
-  const [hasRole, setHasRole] = useState(false);
-  const [checking, setChecking] = useState(true);
-
-  useEffect(() => {
-    const checkRole = async () => {
-      try {
-        if (!user) {
-          setHasRole(false);
-          setChecking(false);
-          return;
-        }
-
-        const currentUser = await authService.getCurrentUser();
-        if (!currentUser) {
-          setHasRole(false);
-          setChecking(false);
-          return;
-        }
-
-        const userRole = currentUser.profile?.role || 'user';
-        const hasRequiredRole = authService.hasRole(userRole, role);
-        setHasRole(hasRequiredRole);
-        setChecking(false);
-      } catch (error) {
-        console.error('Error checking role:', error);
-        setHasRole(false);
-        setChecking(false);
-      }
-    };
-
-    checkRole();
-  }, [user, role]);
-
-  if (checking) {
-    return <div className="animate-pulse bg-gray-200 h-4 rounded"></div>;
-  }
-
-  if (!hasRole) {
-    return fallback;
-  }
-
-  return children;
-};
-
-/**
- * Hook for checking permissions
- */
-export const usePermissions = () => {
-  const { user } = useAuth();
-  const [permissions, setPermissions] = useState([]);
-  const [userRole, setUserRole] = useState('user');
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadPermissions = async () => {
-      try {
-        if (!user) {
-          setPermissions([]);
-          setUserRole('user');
-          setLoading(false);
-          return;
-        }
-
-        const currentUser = await authService.getCurrentUser();
-        if (!currentUser) {
-          setPermissions([]);
-          setUserRole('user');
-          setLoading(false);
-          return;
-        }
-
-        const role = currentUser.profile?.role || 'user';
-        const userPermissions = await authService.getUserPermissions();
-        
-        setUserRole(role);
-        setPermissions(userPermissions);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error loading permissions:', error);
-        setPermissions([]);
-        setUserRole('user');
-        setLoading(false);
-      }
-    };
-
-    loadPermissions();
-  }, [user]);
-
-  const hasPermission = (permission) => {
-    return permissions.includes(permission);
-  };
-
-  const hasRole = (role) => {
-    return authService.hasRole(userRole, role);
-  };
-
-  const canPerform = async (permission) => {
-    return await authService.canPerform(permission);
-  };
-
-  return {
-    permissions,
-    userRole,
-    loading,
-    hasPermission,
-    hasRole,
-    canPerform,
-    isAdmin: hasRole('editor'),
-    isSuperAdmin: hasRole('super_admin')
-  };
 };
 
 export default AdminRoute;

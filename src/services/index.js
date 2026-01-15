@@ -49,53 +49,39 @@ class ServiceManager {
    */
   async _performInitialization(config, userId) {
     try {
-      console.log('Initializing SafeSats backend services...');
+      console.log('🔄 SafeSats admin platform - services disabled');
+      console.log('ℹ️ This is an admin-only platform, trading services are disabled');
+
+      // Check if trading services are disabled globally
+      if (window.DISABLE_TRADING_SERVICES) {
+        console.log('🚫 Trading services disabled - skipping initialization');
+        this.isInitialized = true;
+        return {
+          success: true,
+          message: 'Admin-only platform - trading services disabled',
+          services: { disabled: true }
+        };
+      }
 
       // Configure services based on environment variables and config
       this._configureServices(config);
 
-      // Initialize price service with error handling
-      if (config.enablePriceService !== false) {
-        const priceInterval = config.priceUpdateInterval ||
-          parseInt(process.env.REACT_APP_PRICE_UPDATE_INTERVAL) ||
-          30000;
+      // Skip price service initialization for admin-only platform
+      console.log('⚠️ Price service disabled for admin-only platform');
 
-        console.log(`Starting price service with ${priceInterval}ms interval`);
+      // Skip real-time service initialization for admin-only platform
+      console.log('⚠️ Real-time service disabled for admin-only platform');
 
-        try {
-          const priceResult = await this.services.price.start(priceInterval);
-          if (priceResult.success) {
-            console.log('✅ Price service started successfully');
-          } else {
-            console.warn('⚠️ Price service started with warnings:', priceResult.error);
-          }
-        } catch (error) {
-          console.error('❌ Price service failed to start:', error.message);
-          console.warn('⚠️ Continuing initialization without price service');
-          // Don't throw error - allow app to continue without price service
-        }
-      }
-
-      // Initialize real-time service if user is provided
-      if (userId && config.enableRealtime !== false) {
-        console.log('Initializing real-time service for user:', userId);
-        await this.services.realtime.initialize(userId);
-      }
-
-      // Configure trading service
-      if (config.tradingConfig) {
-        this.services.trading.updateConfig(config.tradingConfig);
-      }
+      // Skip trading service configuration for admin-only platform
+      console.log('⚠️ Trading service disabled for admin-only platform');
 
       this.isInitialized = true;
-      console.log('All services initialized successfully');
-
-      // Set up global error handlers
-      this._setupErrorHandlers();
+      console.log('✅ Admin platform initialized (trading services disabled)');
 
       return {
         success: true,
-        services: this.getServiceStatus()
+        message: 'Admin platform initialized successfully',
+        services: { disabled: true }
       };
 
     } catch (error) {
@@ -300,17 +286,17 @@ export {
   serviceManager
 };
 
+// Export additional services
+export { default as authService } from './authService';
+export { default as blogService } from './blogService';
+export { default as subscriptionService } from './subscriptionService';
+export { default as commentService } from './commentService';
+export { default as mediaService } from './mediaService';
+export { default as adminPriceService } from './adminPriceService';
+
 export default serviceManager;
 
-// Auto-initialize in development mode if debug is enabled
+// Debug mode disabled for admin-only platform
 if (process.env.REACT_APP_DEBUG_MODE === 'true') {
-  window.serviceManager = serviceManager;
-  window.services = {
-    price: priceService,
-    trading: tradingService,
-    portfolio: portfolioService,
-    realtime: realtimeService
-  };
-  
-  console.log('Services exposed to window for debugging');
+  console.log('🔧 Debug mode: Trading services disabled for admin platform');
 }

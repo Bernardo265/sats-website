@@ -9,8 +9,9 @@ import { PAYMENT_METHODS, PAYMENT_METHOD_CONFIG } from '../../utils/paymentConst
 // Mock the payment context
 const mockPaymentContext = {
   availablePaymentMethods: [
-    PAYMENT_METHOD_CONFIG[PAYMENT_METHODS.AIRTEL_MONEY],
-    PAYMENT_METHOD_CONFIG[PAYMENT_METHODS.MUKURU]
+    PAYMENT_METHOD_CONFIG[PAYMENT_METHODS.Paychangu]
+    // PAYMENT_METHOD_CONFIG[PAYMENT_METHODS.AIRTEL_MONEY],
+    // PAYMENT_METHOD_CONFIG[PAYMENT_METHODS.MUKURU]
   ],
   selectedPaymentMethod: null
 };

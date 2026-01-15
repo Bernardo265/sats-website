@@ -1,28 +1,33 @@
 import React, { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useSearchParams } from 'react-router-dom';
 import SEOHead from '../components/common/SEOHead';
 import { useAuth } from '../contexts/AuthContext';
 import { validateLoginForm } from '../utils/validation';
 import { generateStructuredData } from '../utils/seo';
+import authService from '../services/authService';
 
 function Login() {
   const { login, loading, isAuthenticated } = useAuth();
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get('redirect') || '/admin';
+  
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [isCheckingAdmin, setIsCheckingAdmin] = useState(false);
 
-  // Redirect if already authenticated
+  // Redirect if already authenticated and is admin
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to={redirectTo} replace />;
   }
 
   const loginPageData = {
-    title: 'Sign In | SafeSats Bitcoin Trading Platform',
-    description: 'Sign in to your SafeSats account to access your dashboard and prepare for Bitcoin trading.',
-    keywords: 'safesats login, sign in, bitcoin trading login, cryptocurrency platform login',
+    title: 'Admin Login | SafeSats Bitcoin Platform',
+    description: 'Admin access to SafeSats content management system and platform administration.',
+    keywords: 'safesats admin login, bitcoin platform admin, content management',
     url: '/login',
     type: 'website'
   };
@@ -53,12 +58,35 @@ function Login() {
       return;
     }
     
+    setIsCheckingAdmin(true);
+    
     // Attempt login
     const result = await login(formData.email, formData.password);
     
-    if (!result.success) {
+    if (result.success) {
+      // Check if user has admin access
+      try {
+        const hasAdminAccess = await authService.isAdmin();
+        if (!hasAdminAccess) {
+          setErrors({ 
+            submit: 'Access denied. This login is for administrators only. Please contact an administrator if you need access.' 
+          });
+          // Logout the user since they don't have admin access
+          await authService.getCurrentUser().then(user => {
+            if (user) {
+              // Don't logout here, let the AdminRoute handle the redirect
+            }
+          });
+        }
+        // If they have admin access, the redirect will happen automatically
+      } catch (error) {
+        setErrors({ submit: 'Error checking admin permissions. Please try again.' });
+      }
+    } else {
       setErrors({ submit: result.error });
     }
+    
+    setIsCheckingAdmin(false);
   };
 
   return (
@@ -77,8 +105,8 @@ function Login() {
                 <span className="text-black font-bold text-2xl">₿</span>
               </div>
             </Link>
-            <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
-            <p className="text-white/70">Sign in to your SafeSats account</p>
+            <h1 className="text-3xl font-bold text-white mb-2">Admin Access</h1>
+            <p className="text-white/70">Sign in to manage the SafeSats platform</p>
           </div>
 
           {/* Login Form */}
@@ -96,10 +124,20 @@ function Login() {
                 </div>
               )}
 
+              {/* Admin Notice */}
+              <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4">
+                <div className="flex items-center space-x-2">
+                  <svg className="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span className="text-blue-400 text-sm">Administrator access required</span>
+                </div>
+              </div>
+
               {/* Email */}
               <div>
                 <label htmlFor="email" className="block text-white font-medium mb-2">
-                  Email Address
+                  Admin Email
                 </label>
                 <input
                   type="email"
@@ -112,8 +150,8 @@ function Login() {
                       ? 'border-red-500 focus:ring-red-500/50' 
                       : 'border-white/20 focus:ring-orange-500/50 focus:border-orange-500/50'
                   }`}
-                  placeholder="Enter your email address"
-                  disabled={loading}
+                  placeholder="Enter admin email address"
+                  disabled={loading || isCheckingAdmin}
                 />
                 {errors.email && (
                   <p className="text-red-400 text-sm mt-1">{errors.email}</p>
@@ -137,8 +175,8 @@ function Login() {
                         ? 'border-red-500 focus:ring-red-500/50' 
                         : 'border-white/20 focus:ring-orange-500/50 focus:border-orange-500/50'
                     }`}
-                    placeholder="Enter your password"
-                    disabled={loading}
+                    placeholder="Enter admin password"
+                    disabled={loading || isCheckingAdmin}
                   />
                   <button
                     type="button"
@@ -162,43 +200,33 @@ function Login() {
                 )}
               </div>
 
-              {/* Forgot Password Link */}
-              <div className="text-right">
-                <Link 
-                  to="/forgot-password" 
-                  className="text-orange-500 hover:text-orange-400 text-sm transition-colors"
-                >
-                  Forgot your password?
-                </Link>
-              </div>
-
               {/* Submit Button */}
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || isCheckingAdmin}
                 className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-orange-500/50 text-black font-semibold py-4 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:transform-none disabled:cursor-not-allowed flex items-center justify-center space-x-2"
               >
-                {loading ? (
+                {loading || isCheckingAdmin ? (
                   <>
                     <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    <span>Signing In...</span>
+                    <span>{isCheckingAdmin ? 'Verifying Admin Access...' : 'Signing In...'}</span>
                   </>
                 ) : (
-                  <span>Sign In</span>
+                  <span>Access Admin Panel</span>
                 )}
               </button>
             </form>
 
-            {/* Register Link */}
+            {/* Admin Info */}
             <div className="text-center mt-6 pt-6 border-t border-white/10">
-              <p className="text-white/60">
-                Don't have an account?{' '}
-                <Link to="/start-trading" className="text-orange-500 hover:text-orange-400 font-medium">
-                  Join Early Access
-                </Link>
+              <p className="text-white/60 text-sm">
+                This is the administrator login for the SafeSats platform.
+              </p>
+              <p className="text-white/50 text-xs mt-2">
+                Need admin access? Contact your system administrator.
               </p>
             </div>
           </div>
@@ -206,16 +234,10 @@ function Login() {
           {/* Additional Links */}
           <div className="text-center mt-8 space-y-2">
             <Link 
-              to="/help" 
-              className="block text-white/60 hover:text-white text-sm transition-colors"
-            >
-              Need help? Contact Support
-            </Link>
-            <Link 
               to="/" 
               className="block text-white/60 hover:text-white text-sm transition-colors"
             >
-              ← Back to Home
+              ← Back to SafeSats Platform
             </Link>
           </div>
         </div>
